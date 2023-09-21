@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.notificationstore.v1.web.service;
 
-import java.util.List;
 
 
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.DemandResult;
@@ -86,11 +85,12 @@ public class NotificationStoreService
      * @param strCustomerId
      * @param strIdDemandType
      * @param strIndex (Not required)
+     * @param strNotificationType (Not required)
      * @return list of demand
      */
-    public DemandResult getListDemand ( String strCustomerId, String strIdDemandType, String strIndex )
+    public DemandResult getListDemand ( String strCustomerId, String strIdDemandType, String strIndex, String strNotificationType )
     {
-        return this._transportProvider.getListDemand( strCustomerId, strIdDemandType, strIndex );
+        return this._transportProvider.getListDemand( strCustomerId, strIdDemandType, strIndex, strNotificationType );
     }
     
     /**
@@ -99,11 +99,12 @@ public class NotificationStoreService
      * @param strListStatus (separated by , )
      * @param strIdDemandType
      * @param strIndex (Not required)
+     * @param strNotificationType (Not required)
      * @return list of demand
      */
-    public DemandResult getListOfDemandByStatus ( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex )
+    public DemandResult getListOfDemandByStatus ( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex, String strNotificationType )
     {
-        return this._transportProvider.getListOfDemandByStatus( strCustomerId, strListStatus, strIdDemandType, strIndex );
+        return this._transportProvider.getListOfDemandByStatus( strCustomerId, strListStatus, strIdDemandType, strIndex, strNotificationType );
     }
     
     /**

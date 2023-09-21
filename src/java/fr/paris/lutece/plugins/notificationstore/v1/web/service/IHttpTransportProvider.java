@@ -47,11 +47,13 @@ public interface IHttpTransportProvider
      * 
      * @param strEndPointUrl
      *            url
+     * @param mapParams
+     *             mapParams
      * @param mapHeadersRequest
      *            request header
      * @return response list
      */
-     String doGet( String strEndPointUrl, Map<String, String> mapHeadersRequest );
+     String doGet( String strEndPointUrl, Map<String, String> mapParams, Map<String, String> mapHeadersRequest );
 
 
     /**
