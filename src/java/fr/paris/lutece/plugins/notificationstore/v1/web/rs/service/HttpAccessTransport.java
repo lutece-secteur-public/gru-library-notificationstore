@@ -36,6 +36,7 @@ package fr.paris.lutece.plugins.notificationstore.v1.web.rs.service;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.hc.core5.net.URIBuilder;
 import org.apache.log4j.Logger;
 
 
@@ -82,11 +83,21 @@ public class HttpAccessTransport implements IHttpTransportProvider
 
 
     @Override
-    public String doGet( String strEndPointUrl, Map<String, String> mapHeadersRequest )
+    public String doGet( String strEndPointUrl, Map<String, String> mapParams, Map<String, String> mapHeadersRequest )
     {
         try
         {
-            return this._httpClient.doGet( strEndPointUrl, null, null, mapHeadersRequest );        
+            URIBuilder uriBuilder = new URIBuilder( strEndPointUrl );
+
+            if ( ( mapParams != null ) && !mapParams.isEmpty( ) )
+            {
+                for ( String strParamKey : mapParams.keySet( ) )
+                {
+                    uriBuilder.addParameter( strParamKey, mapParams.get( strParamKey ) );
+                }
+            }
+
+            return this._httpClient.doGet( uriBuilder.toString( ), null, null, mapHeadersRequest );         
         }
         catch( Exception e )
         {

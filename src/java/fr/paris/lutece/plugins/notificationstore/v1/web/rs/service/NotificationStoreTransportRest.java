@@ -34,9 +34,9 @@
 package fr.paris.lutece.plugins.notificationstore.v1.web.rs.service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -61,6 +61,7 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
     public static final String PATH_TYPE_DEMAND = "type";
     public static final String QUERY_PARAM_INDEX = "index";
     public static final String QUERY_PARAM_ID_DEMAND_TYPE = "idDemandType";
+    public static final String QUERY_PARAM_NOTIFICATION_TYPE = "notificationType";
     public static final String QUERY_PARAM_CUSTOMER_ID = "customerId";
     public static final String QUERY_PARAM_ID_DEMAND = "idDemand";
     public static final String QUERY_PARAM_LIST_STATUS = "listStatus";
@@ -96,32 +97,63 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
     }
 
     @Override
-    public DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex )
+    public DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strNotificationType )
     {
         _logger.debug( "Get list of demand for customer id " + strCustomerId );
 
-        Map<String, String> mapHeadersRequest = new HashMap<>( );
-        mapHeadersRequest.put( QUERY_PARAM_CUSTOMER_ID, strCustomerId );
-        mapHeadersRequest.put( QUERY_PARAM_ID_DEMAND_TYPE, strIdDemandType );
-        mapHeadersRequest.put( QUERY_PARAM_INDEX, strIndex );
+        Map<String, String> mapParams = new HashMap<>( );
+        if( StringUtils.isNotEmpty( strCustomerId ) )
+        {
+            mapParams.put( QUERY_PARAM_CUSTOMER_ID, strCustomerId );
+        }
+        if( StringUtils.isNotEmpty( strIdDemandType ) )
+        {
+            mapParams.put( QUERY_PARAM_ID_DEMAND_TYPE, strIdDemandType );
+        }
+        if( StringUtils.isNotEmpty( strIndex ) )
+        {
+            mapParams.put( QUERY_PARAM_INDEX, strIndex );
+        }
+        
+        if( StringUtils.isNotEmpty( strNotificationType ) )
+        {
+            mapParams.put( QUERY_PARAM_NOTIFICATION_TYPE, strNotificationType );
+        } 
                         
-        String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_DEMAND_LIST , mapHeadersRequest );
+        String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_DEMAND_LIST , mapParams, new HashMap<>( ) );
         
         return NotificationStoreUtils.jsonToObject( strResponse, new TypeReference<DemandResult>( ){}  );
     }
 
     @Override
-    public DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex )
+    public DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex, String strNotificationType )
     {
         _logger.debug( "Get list of demand by status for customer id " + strCustomerId );
 
-        Map<String, String> mapHeadersRequest = new HashMap<>( );
-        mapHeadersRequest.put( QUERY_PARAM_CUSTOMER_ID, strCustomerId );
-        mapHeadersRequest.put( QUERY_PARAM_LIST_STATUS, strListStatus );
-        mapHeadersRequest.put( QUERY_PARAM_ID_DEMAND_TYPE, strIdDemandType );
-        mapHeadersRequest.put( QUERY_PARAM_INDEX, strIndex );
+        Map<String, String> mapParams = new HashMap<>( );
+        
+        if( StringUtils.isNotEmpty( strCustomerId ) )
+        {
+            mapParams.put( QUERY_PARAM_CUSTOMER_ID, strCustomerId );
+        }
+        if( StringUtils.isNotEmpty( strIdDemandType ) )
+        {
+            mapParams.put( QUERY_PARAM_ID_DEMAND_TYPE, strIdDemandType );
+        }
+        if( StringUtils.isNotEmpty( strIndex ) )
+        {
+            mapParams.put( QUERY_PARAM_INDEX, strIndex );
+        }
+        if( StringUtils.isNotEmpty( strListStatus ) )
+        {
+            mapParams.put( QUERY_PARAM_LIST_STATUS, strListStatus );
+        } 
+        if( StringUtils.isNotEmpty( strNotificationType ) )
+        {
+            mapParams.put( QUERY_PARAM_NOTIFICATION_TYPE, strNotificationType );
+        } 
                         
-        String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_DEMAND_STATUS, mapHeadersRequest );
+        String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_DEMAND_STATUS, mapParams, new HashMap<>( ) );
         
         return NotificationStoreUtils.jsonToObject( strResponse, new TypeReference<DemandResult>( ){} );
     }
@@ -131,12 +163,21 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
     {
         _logger.debug( "Get list of notification of demand id " + strIdDemand );
 
-        Map<String, String> mapHeadersRequest = new HashMap<>( );
-        mapHeadersRequest.put( QUERY_PARAM_CUSTOMER_ID, strCustomerId );
-        mapHeadersRequest.put( QUERY_PARAM_ID_DEMAND, strIdDemand );
-        mapHeadersRequest.put( QUERY_PARAM_ID_DEMAND_TYPE, strIdDemandType );
+        Map<String, String> mapParams = new HashMap<>( );
+        if( StringUtils.isNotEmpty( strCustomerId ) )
+        {
+            mapParams.put( QUERY_PARAM_CUSTOMER_ID, strCustomerId );
+        }
+        if( StringUtils.isNotEmpty( strIdDemandType ) )
+        {
+            mapParams.put( QUERY_PARAM_ID_DEMAND_TYPE, strIdDemandType );
+        }
+        if( StringUtils.isNotEmpty( strIdDemand ) )
+        {
+            mapParams.put( QUERY_PARAM_ID_DEMAND, strIdDemand );
+        }
                         
-        String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_NOTIFICATION_LIST, mapHeadersRequest );
+        String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_NOTIFICATION_LIST, mapParams, new HashMap<>( ) );
         
         return NotificationStoreUtils.jsonToObject( strResponse, new TypeReference<NotificationResult>( ){} );
     }
@@ -145,10 +186,8 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
     public String getDemandTypes( )
     {
         _logger.debug( "Get list of demand type " );
-
-        Map<String, String> mapHeadersRequest = new HashMap<>( );
                 
-        return _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_TYPE_DEMAND, mapHeadersRequest );
+        return _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_TYPE_DEMAND, new HashMap<>( ), new HashMap<>( )  );
     }
 
 }
