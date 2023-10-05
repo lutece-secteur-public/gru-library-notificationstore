@@ -36,6 +36,7 @@ package fr.paris.lutece.plugins.notificationstore.v1.web.service;
 
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.DemandResult;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.NotificationResult;
+import fr.paris.lutece.plugins.grubusiness.service.notification.NotificationException;
 
 /**
  * Interface for providing NotificationStore transport.
@@ -51,7 +52,7 @@ public interface INotificationStoreTransportProvider
      * @param strNotificationType
      * @return list of demand
      */
-    DemandResult getListDemand ( String strCustomerId, String strIdDemandType, String strIndex, String strNotificationType );
+    DemandResult getListDemand ( String strCustomerId, String strIdDemandType, String strIndex, String strNotificationType )  throws NotificationException;
     
     /**
      * List of demand by list of status, customer id, type demand id and index
@@ -62,7 +63,7 @@ public interface INotificationStoreTransportProvider
      * @param strIndex (Not required)
      * @return list of demand
      */
-    DemandResult getListOfDemandByStatus ( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex, String strNotificationType );
+    DemandResult getListOfDemandByStatus ( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex, String strNotificationType )  throws NotificationException;
     
     /**
      * List of notification by demand id, customer id and type demand id
@@ -71,13 +72,13 @@ public interface INotificationStoreTransportProvider
      * @param strIdDemandType
      * @return list of notification
      */
-    NotificationResult getListNotification ( String strCustomerId, String strIdDemand, String strIdDemandType );
+    NotificationResult getListNotification ( String strCustomerId, String strIdDemand, String strIdDemandType )  throws NotificationException;
     
     /**
      * Gets list of demand types
      * 
      * @return list of demand types
      */
-    String getDemandTypes( );
+    String getDemandTypes( )  throws NotificationException;
 
 }

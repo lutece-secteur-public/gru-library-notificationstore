@@ -35,8 +35,10 @@ package fr.paris.lutece.plugins.notificationstore.web.utils;
 
 import org.apache.log4j.Logger;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -81,18 +83,13 @@ public class NotificationStoreUtils
      * @param typeReference
      * 
      * @return the desired subclass instance
+     * @throws JsonProcessingException 
+     * @throws JsonMappingException 
      */
-    public static <T> T jsonToObject( String jsonStr, TypeReference<T> typeReference )
+    public static <T> T jsonToObject( String jsonStr, TypeReference<T> typeReference ) throws JsonMappingException, JsonProcessingException
     {
-        T response = null;
-        try
-        {
-            response = getMapper ( ).readValue( jsonStr, typeReference );
-        }
-        catch( final Exception e )
-        {
-            _logger.error( "LibraryNotificationstore - Error HttpAccessTransport :" + e.getMessage( ), e );
-        }
+        T response = getMapper ( ).readValue( jsonStr, typeReference );
+        
         return response;
     }
     

@@ -43,6 +43,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.DemandResult;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.NotificationResult;
+import fr.paris.lutece.plugins.grubusiness.service.notification.NotificationException;
 import fr.paris.lutece.plugins.notificationstore.v1.web.service.IHttpTransportProvider;
 import fr.paris.lutece.plugins.notificationstore.v1.web.service.INotificationStoreTransportProvider;
 import fr.paris.lutece.plugins.notificationstore.web.utils.NotificationStoreUtils;
@@ -97,7 +98,7 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
     }
 
     @Override
-    public DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strNotificationType )
+    public DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strNotificationType ) throws NotificationException
     {
         _logger.debug( "Get list of demand for customer id " + strCustomerId );
 
@@ -119,14 +120,24 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
         {
             mapParams.put( QUERY_PARAM_NOTIFICATION_TYPE, strNotificationType );
         } 
-                        
-        String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_DEMAND_LIST , mapParams, new HashMap<>( ) );
+                   
+        try 
+        {
+        	String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_DEMAND_LIST , mapParams, new HashMap<>( ) );
+        	
+        	return NotificationStoreUtils.jsonToObject( strResponse, new TypeReference<DemandResult>( ){}  );
+        }
+        catch (Exception e)
+        {
+        	_logger.error(e);
+        	throw new NotificationException( e.getMessage( ) ) ;
+        }
         
-        return NotificationStoreUtils.jsonToObject( strResponse, new TypeReference<DemandResult>( ){}  );
+        
     }
 
     @Override
-    public DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex, String strNotificationType )
+    public DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex, String strNotificationType ) throws NotificationException
     {
         _logger.debug( "Get list of demand by status for customer id " + strCustomerId );
 
@@ -152,14 +163,22 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
         {
             mapParams.put( QUERY_PARAM_NOTIFICATION_TYPE, strNotificationType );
         } 
-                        
-        String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_DEMAND_STATUS, mapParams, new HashMap<>( ) );
-        
-        return NotificationStoreUtils.jsonToObject( strResponse, new TypeReference<DemandResult>( ){} );
+                 
+        try
+        {
+	        String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_DEMAND_STATUS, mapParams, new HashMap<>( ) );
+	        
+	        return NotificationStoreUtils.jsonToObject( strResponse, new TypeReference<DemandResult>( ){} );
+	    }
+	    catch (Exception e)
+	    {
+	    	_logger.error(e);
+	    	throw new NotificationException( e.getMessage( ) ) ;
+	    }
     }
 
     @Override
-    public NotificationResult getListNotification( String strCustomerId, String strIdDemand, String strIdDemandType )
+    public NotificationResult getListNotification( String strCustomerId, String strIdDemand, String strIdDemandType ) throws NotificationException
     {
         _logger.debug( "Get list of notification of demand id " + strIdDemand );
 
@@ -176,18 +195,36 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
         {
             mapParams.put( QUERY_PARAM_ID_DEMAND, strIdDemand );
         }
-                        
-        String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_NOTIFICATION_LIST, mapParams, new HashMap<>( ) );
-        
-        return NotificationStoreUtils.jsonToObject( strResponse, new TypeReference<NotificationResult>( ){} );
+                   
+        try
+        {
+	        String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_NOTIFICATION_LIST, mapParams, new HashMap<>( ) );
+	        
+	        return NotificationStoreUtils.jsonToObject( strResponse, new TypeReference<NotificationResult>( ){} );
+        }
+        catch (Exception e)
+        {
+        	_logger.error(e);
+            _logger.error( "LibraryNotificationStore - Error HttpAccessTransport", e );
+
+        	throw new NotificationException( e.getMessage( ) ) ;
+        }
     }
 
     @Override
-    public String getDemandTypes( )
+    public String getDemandTypes( ) throws NotificationException
     {
         _logger.debug( "Get list of demand type " );
-                
-        return _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_TYPE_DEMAND, new HashMap<>( ), new HashMap<>( )  );
+     
+        try 
+        {
+        	return _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_TYPE_DEMAND, new HashMap<>( ), new HashMap<>( )  );
+        }
+        catch (Exception e)
+        {
+        	_logger.error(e);
+        	throw new NotificationException( e.getMessage( ) ) ;
+        }
     }
 
 }

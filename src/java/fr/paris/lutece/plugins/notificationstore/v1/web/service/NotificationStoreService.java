@@ -37,6 +37,7 @@ package fr.paris.lutece.plugins.notificationstore.v1.web.service;
 
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.DemandResult;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.NotificationResult;
+import fr.paris.lutece.plugins.grubusiness.service.notification.NotificationException;
 
 
 /**
@@ -88,7 +89,8 @@ public class NotificationStoreService
      * @param strNotificationType (Not required)
      * @return list of demand
      */
-    public DemandResult getListDemand ( String strCustomerId, String strIdDemandType, String strIndex, String strNotificationType )
+    public DemandResult getListDemand ( String strCustomerId, String strIdDemandType, String strIndex, String strNotificationType ) 
+    		throws NotificationException
     {
         return this._transportProvider.getListDemand( strCustomerId, strIdDemandType, strIndex, strNotificationType );
     }
@@ -103,6 +105,7 @@ public class NotificationStoreService
      * @return list of demand
      */
     public DemandResult getListOfDemandByStatus ( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex, String strNotificationType )
+    		 throws NotificationException
     {
         return this._transportProvider.getListOfDemandByStatus( strCustomerId, strListStatus, strIdDemandType, strIndex, strNotificationType );
     }
@@ -115,6 +118,7 @@ public class NotificationStoreService
      * @return list of notification
      */
     public NotificationResult getListNotification ( String strCustomerId, String strIdDemand, String strIdDemandType )
+    		 throws NotificationException
     {
         return this._transportProvider.getListNotification( strCustomerId, strIdDemand, strIdDemandType );
     }
@@ -124,7 +128,7 @@ public class NotificationStoreService
      * 
      * @return list of demand types
      */
-    public String getDemandTypes( )
+    public String getDemandTypes( ) throws NotificationException
     {
         return this._transportProvider.getDemandTypes( );
     }
