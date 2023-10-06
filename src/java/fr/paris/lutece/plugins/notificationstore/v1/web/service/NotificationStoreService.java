@@ -124,6 +124,19 @@ public class NotificationStoreService
     }
     
     /**
+     * List of notification by demand id, customer id and type demand id
+     * @param strCustomerId
+     * @param strIdDemand
+     * @param strIdDemandType
+     * @return list of notification
+     */
+    public String deleteNotificationByCuid ( String strCustomerId )
+    		 throws NotificationException
+    {
+        return this._transportProvider.deleteNotificationByCuid( strCustomerId );
+    }
+    
+    /**
      * Gets list of demand types
      * 
      * @return list of demand types

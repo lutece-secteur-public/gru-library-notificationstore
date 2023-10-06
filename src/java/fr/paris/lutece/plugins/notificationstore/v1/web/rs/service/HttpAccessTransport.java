@@ -65,7 +65,6 @@ public class HttpAccessTransport implements IHttpTransportProvider
      */
     public void setApiEndPointUrl( String strApiEndPointUrl )
     {
-
         _strEndPoint = strApiEndPointUrl;
     }
 
@@ -76,7 +75,6 @@ public class HttpAccessTransport implements IHttpTransportProvider
      */
     public String getApiEndPointUrl( )
     {
-
         return _strEndPoint;
     }
 
@@ -97,7 +95,9 @@ public class HttpAccessTransport implements IHttpTransportProvider
                 }
             }
 
-            return this._httpClient.doGet( uriBuilder.toString( ), null, null, mapHeadersRequest );         
+            addAuthentication( mapHeadersRequest );
+            
+            return this._httpClient.doGet( uriBuilder.toString( ), null, null, mapHeadersRequest  );         
         }
         catch( Exception e )
         {
@@ -118,4 +118,23 @@ public class HttpAccessTransport implements IHttpTransportProvider
     {
         // default : no authentication
     }
+
+	@Override
+	public String doDelete(String strEndPointUrl, Map<String, String> mapHeadersRequest )
+	{
+		try
+	    {
+	        URIBuilder uriBuilder = new URIBuilder( strEndPointUrl );
+	        
+	        addAuthentication( mapHeadersRequest );
+	
+	        return this._httpClient.doDelete( uriBuilder.toString( ), null, null, mapHeadersRequest, null );         
+	    }
+	    catch( Exception e )
+	    {
+	        _logger.error( "LibraryNotificationstore - Error HttpAccessTransport :" + e.getMessage( ), e );
+	    }
+
+		return StringUtils.EMPTY;
+	}
 }

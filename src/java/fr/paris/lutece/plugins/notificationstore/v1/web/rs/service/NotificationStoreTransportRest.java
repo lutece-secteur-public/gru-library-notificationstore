@@ -47,6 +47,7 @@ import fr.paris.lutece.plugins.grubusiness.service.notification.NotificationExce
 import fr.paris.lutece.plugins.notificationstore.v1.web.service.IHttpTransportProvider;
 import fr.paris.lutece.plugins.notificationstore.v1.web.service.INotificationStoreTransportProvider;
 import fr.paris.lutece.plugins.notificationstore.web.utils.NotificationStoreUtils;
+import fr.paris.lutece.util.http.SecurityUtil;
 
 /**
  * 
@@ -226,5 +227,20 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
         	throw new NotificationException( e.getMessage( ) ) ;
         }
     }
+
+	@Override
+	public String deleteNotificationByCuid(String strCustomerId) throws NotificationException {
+		 _logger.debug( "Delete all notifications of customer : " + SecurityUtil.logForgingProtect( strCustomerId ) );
+	     
+	        try 
+	        {
+	        	return _httpTransport.doDelete( _strNotificationStoreEndPoint + strCustomerId, new HashMap<>( )  );
+	        }
+	        catch (Exception e)
+	        {
+	        	_logger.error(e);
+	        	throw new NotificationException( e.getMessage( ) ) ;
+	        }
+	}
 
 }

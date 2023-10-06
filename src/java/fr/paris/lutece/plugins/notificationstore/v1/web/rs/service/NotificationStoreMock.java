@@ -230,4 +230,10 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
                 "]";
     }
 
+	@Override
+	public String deleteNotificationByCuid(String strCustomerId) {
+		
+		return null;
+	}
+
 }

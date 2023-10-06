@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.notificationstore.v1.web.service;
 
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -69,4 +70,17 @@ public interface IHttpTransportProvider
      * @return strEndPointUrl
      */
     public String getApiEndPointUrl( );
+
+    /**
+     * make a DELETE request on given url with parameters
+     * 
+     * @param strEndPointUrl
+     *            url
+     * @param mapParams
+     *             mapParams
+     * @param mapHeadersRequest
+     *            request header
+     * @return response list
+     */
+	 public String doDelete( String strEndPointUrl, Map<String, String> mapHeadersRequest );
 }

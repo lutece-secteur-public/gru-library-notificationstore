@@ -81,4 +81,13 @@ public interface INotificationStoreTransportProvider
      */
     String getDemandTypes( )  throws NotificationException;
 
+    /**
+     * delete all notifications of a customer
+     * 
+     * @param strCustomerId
+     * @return
+     * @throws NotificationException 
+     */
+	String deleteNotificationByCuid(String strCustomerId) throws NotificationException;
+
 }
