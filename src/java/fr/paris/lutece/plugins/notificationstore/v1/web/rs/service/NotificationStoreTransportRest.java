@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.notificationstore.v1.web.rs.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -41,6 +42,7 @@ import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import fr.paris.lutece.plugins.grubusiness.business.demand.DemandType;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.DemandResult;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.NotificationResult;
 import fr.paris.lutece.plugins.grubusiness.service.notification.NotificationException;
@@ -213,13 +215,15 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
     }
 
     @Override
-    public String getDemandTypes( ) throws NotificationException
+    public List<DemandType> getDemandTypes( ) throws NotificationException
     {
         _logger.debug( "Get list of demand type " );
      
         try 
         {
-        	return _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_TYPE_DEMAND, new HashMap<>( ), new HashMap<>( )  );
+        	String json = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_TYPE_DEMAND, new HashMap<>( ), new HashMap<>( )  );
+        	
+        	return NotificationStoreUtils.jsonToObject(json, new TypeReference<List<DemandType>>(){} );
         }
         catch (Exception e)
         {

@@ -34,6 +34,9 @@
 package fr.paris.lutece.plugins.notificationstore.v1.web.service;
 
 
+import java.util.List;
+
+import fr.paris.lutece.plugins.grubusiness.business.demand.DemandType;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.DemandResult;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.NotificationResult;
 import fr.paris.lutece.plugins.grubusiness.service.notification.NotificationException;
@@ -79,7 +82,7 @@ public interface INotificationStoreTransportProvider
      * 
      * @return list of demand types
      */
-    String getDemandTypes( )  throws NotificationException;
+    List<DemandType> getDemandTypes( )  throws NotificationException;
 
     /**
      * delete all notifications of a customer

@@ -34,11 +34,13 @@
 package fr.paris.lutece.plugins.notificationstore.v1.web.rs.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import fr.paris.lutece.plugins.grubusiness.business.customer.Customer;
 import fr.paris.lutece.plugins.grubusiness.business.demand.Demand;
+import fr.paris.lutece.plugins.grubusiness.business.demand.DemandType;
 import fr.paris.lutece.plugins.grubusiness.business.notification.MyDashboardNotification;
 import fr.paris.lutece.plugins.grubusiness.business.notification.Notification;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.DemandDisplay;
@@ -89,10 +91,31 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
     }
 
     @Override
-    public String getDemandTypes( )
+    public List<DemandType> getDemandTypes( )
     {
         _logger.debug( "MOCK: Get list of demand type " );
-        return getDemandTypesAsJson( );
+        
+    	List<DemandType> list = new ArrayList<>();
+    	
+    	DemandType demandType1 = new DemandType();
+    	demandType1.setIdDemandType( 123 );
+    	demandType1.setLabel( "Paris Familles - Inscription scolaire" );
+    	demandType1.setAppCode( "A63" );
+    	list.add( demandType1 );
+    	
+    	DemandType demandType2 = new DemandType();
+    	demandType2.setIdDemandType( 123 );
+    	demandType2.setLabel( "demande de subventions" );
+    	demandType2.setAppCode( "W30" );
+    	list.add( demandType2 );
+    	
+    	DemandType demandType3 = new DemandType();
+    	demandType3.setIdDemandType( 123 );
+    	demandType3.setLabel( "Formulaires DSIN" );
+    	demandType3.setAppCode( "F56" );
+    	list.add( demandType3 );
+    	
+    	return list;               
     }
 
 
@@ -196,40 +219,7 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
 
         return demandDisplay;
     }
-
-    /**
-     * get Mock demand type Ids as JSON
-     * @return a json string
-     */
-    private String getDemandTypesAsJson() {
-        return "[\n" +
-                "  {\n" +
-                "    \"id_demand_type\": 123,\n" +
-                "    \"label\": \"Paris Familles - Inscription scolaire\",\n" +
-                "    \"app_code\": \"A11\",\n" +
-                "    \"url\": \"A63\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"id_demand_type\": 234,\n" +
-                "    \"label\": \"demande de subventions\",\n" +
-                "    \"app_code\": \"B22\",\n" +
-                "    \"url\": \"W30\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"id_demand_type\": 456,\n" +
-                "    \"label\": \"Formulaires DSIN\",\n" +
-                "    \"app_code\": \"C33\",\n" +
-                "    \"url\": \"F56\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"id_demand_type\": 567,\n" +
-                "    \"label\": \"Formulaires DTEC\",\n" +
-                "    \"app_code\": \"D44\",\n" +
-                "    \"url\": \"F53\"\n" +
-                "  }\n" +
-                "]";
-    }
-
+    
 	@Override
 	public String deleteNotificationByCuid(String strCustomerId) {
 		
