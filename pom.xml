@@ -55,4 +55,11 @@
         <jiraProjectName>NOTIFICATIONSTORE</jiraProjectName>
         <jiraComponentId></jiraComponentId>
     </properties>
+
+    <scm>
+        <connection>scm:git:https://github.com/lutece-secteur-public/gru-library-notificationstore.git</connection>
+        <developerConnection>scm:git:https://github.com/lutece-secteur-public/gru-library-notificationstore.git</developerConnection>
+        <url>https://github.com/lutece-secteur-public/gru-library-notificationstore.git</url>
+    </scm>
+
 </project>
