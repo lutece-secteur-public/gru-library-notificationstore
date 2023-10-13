@@ -33,10 +33,8 @@
  */
 package fr.paris.lutece.plugins.notificationstore.v1.web.service;
 
-
 import java.util.HashMap;
 import java.util.Map;
-
 
 /**
  * IHttpTransportProvider
@@ -49,13 +47,12 @@ public interface IHttpTransportProvider
      * @param strEndPointUrl
      *            url
      * @param mapParams
-     *             mapParams
+     *            mapParams
      * @param mapHeadersRequest
      *            request header
      * @return response list
      */
-     String doGet( String strEndPointUrl, Map<String, String> mapParams, Map<String, String> mapHeadersRequest );
-
+    String doGet( String strEndPointUrl, Map<String, String> mapParams, Map<String, String> mapHeadersRequest );
 
     /**
      * set end point
@@ -77,10 +74,10 @@ public interface IHttpTransportProvider
      * @param strEndPointUrl
      *            url
      * @param mapParams
-     *             mapParams
+     *            mapParams
      * @param mapHeadersRequest
      *            request header
      * @return response list
      */
-	 public String doDelete( String strEndPointUrl, Map<String, String> mapHeadersRequest );
+    public String doDelete( String strEndPointUrl, Map<String, String> mapHeadersRequest );
 }

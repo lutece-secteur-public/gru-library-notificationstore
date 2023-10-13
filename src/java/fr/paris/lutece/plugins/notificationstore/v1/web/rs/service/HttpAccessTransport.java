@@ -39,7 +39,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.hc.core5.net.URIBuilder;
 import org.apache.log4j.Logger;
 
-
 import fr.paris.lutece.plugins.notificationstore.v1.web.service.IHttpTransportProvider;
 import fr.paris.lutece.util.httpaccess.HttpAccess;
 
@@ -78,8 +77,6 @@ public class HttpAccessTransport implements IHttpTransportProvider
         return _strEndPoint;
     }
 
-
-
     @Override
     public String doGet( String strEndPointUrl, Map<String, String> mapParams, Map<String, String> mapHeadersRequest )
     {
@@ -96,8 +93,8 @@ public class HttpAccessTransport implements IHttpTransportProvider
             }
 
             addAuthentication( mapHeadersRequest );
-            
-            return this._httpClient.doGet( uriBuilder.toString( ), null, null, mapHeadersRequest  );         
+
+            return this._httpClient.doGet( uriBuilder.toString( ), null, null, mapHeadersRequest );
         }
         catch( Exception e )
         {
@@ -107,7 +104,6 @@ public class HttpAccessTransport implements IHttpTransportProvider
         return StringUtils.EMPTY;
     }
 
-    
     /**
      * add specific authentication to request
      * 
@@ -119,22 +115,22 @@ public class HttpAccessTransport implements IHttpTransportProvider
         // default : no authentication
     }
 
-	@Override
-	public String doDelete(String strEndPointUrl, Map<String, String> mapHeadersRequest )
-	{
-		try
-	    {
-	        URIBuilder uriBuilder = new URIBuilder( strEndPointUrl );
-	        
-	        addAuthentication( mapHeadersRequest );
-	
-	        return this._httpClient.doDelete( uriBuilder.toString( ), null, null, mapHeadersRequest, null );         
-	    }
-	    catch( Exception e )
-	    {
-	        _logger.error( "LibraryNotificationstore - Error HttpAccessTransport :" + e.getMessage( ), e );
-	    }
+    @Override
+    public String doDelete( String strEndPointUrl, Map<String, String> mapHeadersRequest )
+    {
+        try
+        {
+            URIBuilder uriBuilder = new URIBuilder( strEndPointUrl );
 
-		return StringUtils.EMPTY;
-	}
+            addAuthentication( mapHeadersRequest );
+
+            return this._httpClient.doDelete( uriBuilder.toString( ), null, null, mapHeadersRequest, null );
+        }
+        catch( Exception e )
+        {
+            _logger.error( "LibraryNotificationstore - Error HttpAccessTransport :" + e.getMessage( ), e );
+        }
+
+        return StringUtils.EMPTY;
+    }
 }

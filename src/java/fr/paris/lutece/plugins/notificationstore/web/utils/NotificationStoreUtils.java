@@ -41,7 +41,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
 /**
  * 
  * NotificationStoreUtils
@@ -52,19 +51,19 @@ public class NotificationStoreUtils
 
     private static Logger _logger = Logger.getLogger( NotificationStoreUtils.class );
     private static ObjectMapper _mapper = null;
-    
+
     /**
      * Private constructor
      */
-    private NotificationStoreUtils ( )
+    private NotificationStoreUtils( )
     {
-       
+
     }
 
     /**
      * ObjectMapper
      */
-    public static ObjectMapper getMapper ( )
+    public static ObjectMapper getMapper( )
     {
         if ( _mapper == null )
         {
@@ -74,7 +73,7 @@ public class NotificationStoreUtils
         }
         return _mapper;
     }
-    
+
     /**
      * Converts json String response to the desired subclass instance.
      *
@@ -83,14 +82,14 @@ public class NotificationStoreUtils
      * @param typeReference
      * 
      * @return the desired subclass instance
-     * @throws JsonProcessingException 
-     * @throws JsonMappingException 
+     * @throws JsonProcessingException
+     * @throws JsonMappingException
      */
     public static <T> T jsonToObject( String jsonStr, TypeReference<T> typeReference ) throws JsonMappingException, JsonProcessingException
     {
-        T response = getMapper ( ).readValue( jsonStr, typeReference );
-        
+        T response = getMapper( ).readValue( jsonStr, typeReference );
+
         return response;
     }
-    
+
 }

@@ -72,14 +72,15 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
     public DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strNotificationType )
     {
         _logger.debug( "MOCK : Get list of demand for customer id " + strCustomerId );
-        return getMockDemandResult(  strCustomerId, strIdDemandType, null );
+        return getMockDemandResult( strCustomerId, strIdDemandType, null );
     }
 
     @Override
-    public DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex, String strNotificationType )
+    public DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex,
+            String strNotificationType )
     {
         _logger.debug( "MOCK : Get list of demand by status for customer id " + strCustomerId );
-        return getMockDemandResult(  strCustomerId, strIdDemandType, strListStatus );
+        return getMockDemandResult( strCustomerId, strIdDemandType, strListStatus );
 
     }
 
@@ -94,57 +95,60 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
     public List<DemandType> getDemandTypes( )
     {
         _logger.debug( "MOCK: Get list of demand type " );
-        
-    	List<DemandType> list = new ArrayList<>();
-    	
-    	DemandType demandType1 = new DemandType();
-    	demandType1.setIdDemandType( 123 );
-    	demandType1.setLabel( "Paris Familles - Inscription scolaire" );
-    	demandType1.setAppCode( "A63" );
-    	list.add( demandType1 );
-    	
-    	DemandType demandType2 = new DemandType();
-    	demandType2.setIdDemandType( 123 );
-    	demandType2.setLabel( "demande de subventions" );
-    	demandType2.setAppCode( "W30" );
-    	list.add( demandType2 );
-    	
-    	DemandType demandType3 = new DemandType();
-    	demandType3.setIdDemandType( 123 );
-    	demandType3.setLabel( "Formulaires DSIN" );
-    	demandType3.setAppCode( "F56" );
-    	list.add( demandType3 );
-    	
-    	return list;               
-    }
 
+        List<DemandType> list = new ArrayList<>( );
+
+        DemandType demandType1 = new DemandType( );
+        demandType1.setIdDemandType( 123 );
+        demandType1.setLabel( "Paris Familles - Inscription scolaire" );
+        demandType1.setAppCode( "A63" );
+        list.add( demandType1 );
+
+        DemandType demandType2 = new DemandType( );
+        demandType2.setIdDemandType( 123 );
+        demandType2.setLabel( "demande de subventions" );
+        demandType2.setAppCode( "W30" );
+        list.add( demandType2 );
+
+        DemandType demandType3 = new DemandType( );
+        demandType3.setIdDemandType( 123 );
+        demandType3.setLabel( "Formulaires DSIN" );
+        demandType3.setAppCode( "F56" );
+        list.add( demandType3 );
+
+        return list;
+    }
 
     /**
      * get a list of 3 Mock Demands
+     * 
      * @param strCustomerId
      * @param strIdDemandType
      * @param strStatusList
      * @return the demandResult list
      */
-    private DemandResult getMockDemandResult( String strCustomerId, String strIdDemandType, String strStatusList ) {
-        DemandResult demandResult = new DemandResult();
+    private DemandResult getMockDemandResult( String strCustomerId, String strIdDemandType, String strStatusList )
+    {
+        DemandResult demandResult = new DemandResult( );
         demandResult.setListDemandDisplay( new ArrayList<DemandDisplay>( ) );
 
-        Customer customer = new Customer();
+        Customer customer = new Customer( );
         customer.setId( strCustomerId );
         customer.setConnectionId( "AZERTY-AZERTY-AZERTY-AZERTY" );
 
-        for (int i=0; i<3; i++) {
+        for ( int i = 0; i < 3; i++ )
+        {
 
             String status = "EN COURS";
-            if ( strStatusList != null && strStatusList.split(",").length > 0 ) {
-                status = strStatusList.split(",")[0];
+            if ( strStatusList != null && strStatusList.split( "," ).length > 0 )
+            {
+                status = strStatusList.split( "," ) [0];
             }
-            demandResult.getListDemandDisplay( ).add( getOneMockDemandDisplay( i, strIdDemandType!=null?strIdDemandType:"123",
-                    1672531200000L + (86400000L*i),  // =>  1/1/2023  + i days
-                    1685836800000L + (86400000L*i) , // => 4/6/2023 + i days
-                    status,
-                    customer ) );
+            demandResult.getListDemandDisplay( )
+                    .add( getOneMockDemandDisplay( i, strIdDemandType != null ? strIdDemandType : "123", 1672531200000L + ( 86400000L * i ), // => 1/1/2023 + i
+                                                                                                                                             // days
+                            1685836800000L + ( 86400000L * i ), // => 4/6/2023 + i days
+                            status, customer ) );
         }
 
         return demandResult;
@@ -153,21 +157,21 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
 
     /**
      * get mock list of 3 notifications
+     * 
      * @param strCustomerId
      * @param strIdDemand
      * @param strIdDemandType
-     * @return the Notification Result   list
+     * @return the Notification Result list
      */
-    private NotificationResult getMockListNotification(String strCustomerId, String strIdDemand, String strIdDemandType) {
-        NotificationResult notificationResult = new NotificationResult();
+    private NotificationResult getMockListNotification( String strCustomerId, String strIdDemand, String strIdDemandType )
+    {
+        NotificationResult notificationResult = new NotificationResult( );
 
-        for (int i=0; i<3; i++) {
+        for ( int i = 0; i < 3; i++ )
+        {
 
-            notificationResult.getNotifications().add(
-                    getOneMockNotification( 1685836800000L + (86400000L*i), // => 4/6/2023 + i days
-                    "Mock subject " + i,
-                    "Mock message " + i,
-                    "EN COURS") );
+            notificationResult.getNotifications( ).add( getOneMockNotification( 1685836800000L + ( 86400000L * i ), // => 4/6/2023 + i days
+                    "Mock subject " + i, "Mock message " + i, "EN COURS" ) );
         }
 
         return notificationResult;
@@ -182,13 +186,14 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
      * @param status
      * @return the notification
      */
-    private Notification getOneMockNotification( long date, String subject, String message, String status ) {
-        MyDashboardNotification myDashboardNotification = new MyDashboardNotification();
+    private Notification getOneMockNotification( long date, String subject, String message, String status )
+    {
+        MyDashboardNotification myDashboardNotification = new MyDashboardNotification( );
         myDashboardNotification.setSubject( subject );
         myDashboardNotification.setMessage( message );
         myDashboardNotification.setStatusText( status );
 
-        Notification notification = new Notification();
+        Notification notification = new Notification( );
         notification.setDate( date );
 
         notification.setMyDashboardNotification( myDashboardNotification );
@@ -198,6 +203,7 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
 
     /**
      * get one Mock DemandDisplay
+     * 
      * @param id
      * @param demandType
      * @param creationDate
@@ -205,25 +211,27 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
      * @param status
      * @return the DemandDisplay
      */
-    private DemandDisplay getOneMockDemandDisplay( int id, String demandType, long creationDate, long modifyDate, String status, Customer customer ) {
-        Demand demand = new Demand();
+    private DemandDisplay getOneMockDemandDisplay( int id, String demandType, long creationDate, long modifyDate, String status, Customer customer )
+    {
+        Demand demand = new Demand( );
         demand.setDemandId( id );
         demand.setTypeId( demandType );
         demand.setCreationDate( creationDate );
         demand.setModifyDate( modifyDate );
         demand.setCustomer( customer );
 
-        DemandDisplay demandDisplay = new DemandDisplay();
+        DemandDisplay demandDisplay = new DemandDisplay( );
         demandDisplay.setDemand( demand );
         demandDisplay.setStatus( status );
 
         return demandDisplay;
     }
-    
-	@Override
-	public String deleteNotificationByCuid(String strCustomerId) {
-		
-		return null;
-	}
+
+    @Override
+    public String deleteNotificationByCuid( String strCustomerId )
+    {
+
+        return null;
+    }
 
 }

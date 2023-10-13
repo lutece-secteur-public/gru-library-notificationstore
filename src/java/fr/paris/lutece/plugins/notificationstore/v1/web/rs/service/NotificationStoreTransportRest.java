@@ -69,7 +69,6 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
     public static final String QUERY_PARAM_CUSTOMER_ID = "customerId";
     public static final String QUERY_PARAM_ID_DEMAND = "idDemand";
     public static final String QUERY_PARAM_LIST_STATUS = "listStatus";
-    
 
     /**
      * Logger
@@ -106,78 +105,82 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
         _logger.debug( "Get list of demand for customer id " + strCustomerId );
 
         Map<String, String> mapParams = new HashMap<>( );
-        if( StringUtils.isNotEmpty( strCustomerId ) )
+        if ( StringUtils.isNotEmpty( strCustomerId ) )
         {
             mapParams.put( QUERY_PARAM_CUSTOMER_ID, strCustomerId );
         }
-        if( StringUtils.isNotEmpty( strIdDemandType ) )
+        if ( StringUtils.isNotEmpty( strIdDemandType ) )
         {
             mapParams.put( QUERY_PARAM_ID_DEMAND_TYPE, strIdDemandType );
         }
-        if( StringUtils.isNotEmpty( strIndex ) )
+        if ( StringUtils.isNotEmpty( strIndex ) )
         {
             mapParams.put( QUERY_PARAM_INDEX, strIndex );
         }
-        
-        if( StringUtils.isNotEmpty( strNotificationType ) )
+
+        if ( StringUtils.isNotEmpty( strNotificationType ) )
         {
             mapParams.put( QUERY_PARAM_NOTIFICATION_TYPE, strNotificationType );
-        } 
-                   
-        try 
-        {
-        	String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_DEMAND_LIST , mapParams, new HashMap<>( ) );
-        	
-        	return NotificationStoreUtils.jsonToObject( strResponse, new TypeReference<DemandResult>( ){}  );
         }
-        catch (Exception e)
+
+        try
         {
-        	_logger.error(e);
-        	throw new NotificationException( e.getMessage( ) ) ;
+            String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_DEMAND_LIST, mapParams, new HashMap<>( ) );
+
+            return NotificationStoreUtils.jsonToObject( strResponse, new TypeReference<DemandResult>( )
+            {
+            } );
         }
-        
-        
+        catch( Exception e )
+        {
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
+        }
+
     }
 
     @Override
-    public DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex, String strNotificationType ) throws NotificationException
+    public DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex,
+            String strNotificationType ) throws NotificationException
     {
         _logger.debug( "Get list of demand by status for customer id " + strCustomerId );
 
         Map<String, String> mapParams = new HashMap<>( );
-        
-        if( StringUtils.isNotEmpty( strCustomerId ) )
+
+        if ( StringUtils.isNotEmpty( strCustomerId ) )
         {
             mapParams.put( QUERY_PARAM_CUSTOMER_ID, strCustomerId );
         }
-        if( StringUtils.isNotEmpty( strIdDemandType ) )
+        if ( StringUtils.isNotEmpty( strIdDemandType ) )
         {
             mapParams.put( QUERY_PARAM_ID_DEMAND_TYPE, strIdDemandType );
         }
-        if( StringUtils.isNotEmpty( strIndex ) )
+        if ( StringUtils.isNotEmpty( strIndex ) )
         {
             mapParams.put( QUERY_PARAM_INDEX, strIndex );
         }
-        if( StringUtils.isNotEmpty( strListStatus ) )
+        if ( StringUtils.isNotEmpty( strListStatus ) )
         {
             mapParams.put( QUERY_PARAM_LIST_STATUS, strListStatus );
-        } 
-        if( StringUtils.isNotEmpty( strNotificationType ) )
+        }
+        if ( StringUtils.isNotEmpty( strNotificationType ) )
         {
             mapParams.put( QUERY_PARAM_NOTIFICATION_TYPE, strNotificationType );
-        } 
-                 
+        }
+
         try
         {
-	        String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_DEMAND_STATUS, mapParams, new HashMap<>( ) );
-	        
-	        return NotificationStoreUtils.jsonToObject( strResponse, new TypeReference<DemandResult>( ){} );
-	    }
-	    catch (Exception e)
-	    {
-	    	_logger.error(e);
-	    	throw new NotificationException( e.getMessage( ) ) ;
-	    }
+            String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_DEMAND_STATUS, mapParams, new HashMap<>( ) );
+
+            return NotificationStoreUtils.jsonToObject( strResponse, new TypeReference<DemandResult>( )
+            {
+            } );
+        }
+        catch( Exception e )
+        {
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
+        }
     }
 
     @Override
@@ -186,31 +189,33 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
         _logger.debug( "Get list of notification of demand id " + strIdDemand );
 
         Map<String, String> mapParams = new HashMap<>( );
-        if( StringUtils.isNotEmpty( strCustomerId ) )
+        if ( StringUtils.isNotEmpty( strCustomerId ) )
         {
             mapParams.put( QUERY_PARAM_CUSTOMER_ID, strCustomerId );
         }
-        if( StringUtils.isNotEmpty( strIdDemandType ) )
+        if ( StringUtils.isNotEmpty( strIdDemandType ) )
         {
             mapParams.put( QUERY_PARAM_ID_DEMAND_TYPE, strIdDemandType );
         }
-        if( StringUtils.isNotEmpty( strIdDemand ) )
+        if ( StringUtils.isNotEmpty( strIdDemand ) )
         {
             mapParams.put( QUERY_PARAM_ID_DEMAND, strIdDemand );
         }
-                   
+
         try
         {
-	        String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_NOTIFICATION_LIST, mapParams, new HashMap<>( ) );
-	        
-	        return NotificationStoreUtils.jsonToObject( strResponse, new TypeReference<NotificationResult>( ){} );
+            String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_NOTIFICATION_LIST, mapParams, new HashMap<>( ) );
+
+            return NotificationStoreUtils.jsonToObject( strResponse, new TypeReference<NotificationResult>( )
+            {
+            } );
         }
-        catch (Exception e)
+        catch( Exception e )
         {
-        	_logger.error(e);
+            _logger.error( e );
             _logger.error( "LibraryNotificationStore - Error HttpAccessTransport", e );
 
-        	throw new NotificationException( e.getMessage( ) ) ;
+            throw new NotificationException( e.getMessage( ) );
         }
     }
 
@@ -218,33 +223,36 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
     public List<DemandType> getDemandTypes( ) throws NotificationException
     {
         _logger.debug( "Get list of demand type " );
-     
-        try 
+
+        try
         {
-        	String json = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_TYPE_DEMAND, new HashMap<>( ), new HashMap<>( )  );
-        	
-        	return NotificationStoreUtils.jsonToObject(json, new TypeReference<List<DemandType>>(){} );
+            String json = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_TYPE_DEMAND, new HashMap<>( ), new HashMap<>( ) );
+
+            return NotificationStoreUtils.jsonToObject( json, new TypeReference<List<DemandType>>( )
+            {
+            } );
         }
-        catch (Exception e)
+        catch( Exception e )
         {
-        	_logger.error(e);
-        	throw new NotificationException( e.getMessage( ) ) ;
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
         }
     }
 
-	@Override
-	public String deleteNotificationByCuid(String strCustomerId) throws NotificationException {
-		 _logger.debug( "Delete all notifications of customer : " + SecurityUtil.logForgingProtect( strCustomerId ) );
-	     
-	        try 
-	        {
-	        	return _httpTransport.doDelete( _strNotificationStoreEndPoint + strCustomerId, new HashMap<>( )  );
-	        }
-	        catch (Exception e)
-	        {
-	        	_logger.error(e);
-	        	throw new NotificationException( e.getMessage( ) ) ;
-	        }
-	}
+    @Override
+    public String deleteNotificationByCuid( String strCustomerId ) throws NotificationException
+    {
+        _logger.debug( "Delete all notifications of customer : " + SecurityUtil.logForgingProtect( strCustomerId ) );
+
+        try
+        {
+            return _httpTransport.doDelete( _strNotificationStoreEndPoint + strCustomerId, new HashMap<>( ) );
+        }
+        catch( Exception e )
+        {
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
+        }
+    }
 
 }

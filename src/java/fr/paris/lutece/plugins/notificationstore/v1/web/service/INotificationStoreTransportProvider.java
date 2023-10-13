@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.notificationstore.v1.web.service;
 
-
 import java.util.List;
 
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandType;
@@ -46,51 +45,58 @@ import fr.paris.lutece.plugins.grubusiness.service.notification.NotificationExce
  */
 public interface INotificationStoreTransportProvider
 {
- 
+
     /**
      * List of demand by customer id, type demand id and index
+     * 
      * @param strCustomerId
      * @param strIdDemandType
-     * @param strIndex (Not required)
+     * @param strIndex
+     *            (Not required)
      * @param strNotificationType
      * @return list of demand
      */
-    DemandResult getListDemand ( String strCustomerId, String strIdDemandType, String strIndex, String strNotificationType )  throws NotificationException;
-    
+    DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strNotificationType ) throws NotificationException;
+
     /**
      * List of demand by list of status, customer id, type demand id and index
+     * 
      * @param strCustomerId
-     * @param strListStatus (separated by , )
+     * @param strListStatus
+     *            (separated by , )
      * @param strIdDemandType
      * @param strNotificationType
-     * @param strIndex (Not required)
+     * @param strIndex
+     *            (Not required)
      * @return list of demand
      */
-    DemandResult getListOfDemandByStatus ( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex, String strNotificationType )  throws NotificationException;
-    
+    DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex, String strNotificationType )
+            throws NotificationException;
+
     /**
      * List of notification by demand id, customer id and type demand id
+     * 
      * @param strCustomerId
      * @param strIdDemand
      * @param strIdDemandType
      * @return list of notification
      */
-    NotificationResult getListNotification ( String strCustomerId, String strIdDemand, String strIdDemandType )  throws NotificationException;
-    
+    NotificationResult getListNotification( String strCustomerId, String strIdDemand, String strIdDemandType ) throws NotificationException;
+
     /**
      * Gets list of demand types
      * 
      * @return list of demand types
      */
-    List<DemandType> getDemandTypes( )  throws NotificationException;
+    List<DemandType> getDemandTypes( ) throws NotificationException;
 
     /**
      * delete all notifications of a customer
      * 
      * @param strCustomerId
      * @return
-     * @throws NotificationException 
+     * @throws NotificationException
      */
-	String deleteNotificationByCuid(String strCustomerId) throws NotificationException;
+    String deleteNotificationByCuid( String strCustomerId ) throws NotificationException;
 
 }

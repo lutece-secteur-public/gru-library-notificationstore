@@ -101,8 +101,8 @@ public final class HttpApiManagerAccessTransport extends HttpAccessTransport
 
         _logger.debug( "AccessManager Rest Transport getToken with URL_TOKEN property [" + _strAccessManagerEndPointUrl + "]" );
 
-        Map<String, String> mapHeadersRequest = new HashMap< >( );
-        Map<String, String> mapParams = new HashMap< >( );
+        Map<String, String> mapHeadersRequest = new HashMap<>( );
+        Map<String, String> mapParams = new HashMap<>( );
 
         mapParams.put( PARAMS_GRANT_TYPE, PARAMS_GRANT_TYPE_VALUE );
 

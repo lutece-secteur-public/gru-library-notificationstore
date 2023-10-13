@@ -33,15 +33,12 @@
  */
 package fr.paris.lutece.plugins.notificationstore.v1.web.service;
 
-
-
 import java.util.List;
 
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandType;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.DemandResult;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.NotificationResult;
 import fr.paris.lutece.plugins.grubusiness.service.notification.NotificationException;
-
 
 /**
  * NotificationStoreService
@@ -83,62 +80,67 @@ public class NotificationStoreService
         this._transportProvider = transportProvider;
     }
 
-    
     /**
      * List of demand by customer id, type demand id and index
+     * 
      * @param strCustomerId
      * @param strIdDemandType
-     * @param strIndex (Not required)
-     * @param strNotificationType (Not required)
+     * @param strIndex
+     *            (Not required)
+     * @param strNotificationType
+     *            (Not required)
      * @return list of demand
      */
-    public DemandResult getListDemand ( String strCustomerId, String strIdDemandType, String strIndex, String strNotificationType ) 
-    		throws NotificationException
+    public DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strNotificationType ) throws NotificationException
     {
         return this._transportProvider.getListDemand( strCustomerId, strIdDemandType, strIndex, strNotificationType );
     }
-    
+
     /**
      * List of demand by list of status, customer id, type demand id and index
+     * 
      * @param strCustomerId
-     * @param strListStatus (separated by , )
+     * @param strListStatus
+     *            (separated by , )
      * @param strIdDemandType
-     * @param strIndex (Not required)
-     * @param strNotificationType (Not required)
+     * @param strIndex
+     *            (Not required)
+     * @param strNotificationType
+     *            (Not required)
      * @return list of demand
      */
-    public DemandResult getListOfDemandByStatus ( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex, String strNotificationType )
-    		 throws NotificationException
+    public DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex,
+            String strNotificationType ) throws NotificationException
     {
         return this._transportProvider.getListOfDemandByStatus( strCustomerId, strListStatus, strIdDemandType, strIndex, strNotificationType );
     }
-    
+
     /**
      * List of notification by demand id, customer id and type demand id
+     * 
      * @param strCustomerId
      * @param strIdDemand
      * @param strIdDemandType
      * @return list of notification
      */
-    public NotificationResult getListNotification ( String strCustomerId, String strIdDemand, String strIdDemandType )
-    		 throws NotificationException
+    public NotificationResult getListNotification( String strCustomerId, String strIdDemand, String strIdDemandType ) throws NotificationException
     {
         return this._transportProvider.getListNotification( strCustomerId, strIdDemand, strIdDemandType );
     }
-    
+
     /**
      * List of notification by demand id, customer id and type demand id
+     * 
      * @param strCustomerId
      * @param strIdDemand
      * @param strIdDemandType
      * @return list of notification
      */
-    public String deleteNotificationByCuid ( String strCustomerId )
-    		 throws NotificationException
+    public String deleteNotificationByCuid( String strCustomerId ) throws NotificationException
     {
         return this._transportProvider.deleteNotificationByCuid( strCustomerId );
     }
-    
+
     /**
      * Gets list of demand types
      * 
