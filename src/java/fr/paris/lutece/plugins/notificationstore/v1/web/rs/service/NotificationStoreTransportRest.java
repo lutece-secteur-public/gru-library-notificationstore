@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2023, City of Paris
+ * Copyright (c) 2002-2024, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,7 +62,7 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
     public static final String PATH_DEMAND_LIST = "list";
     public static final String PATH_DEMAND_STATUS = "status";
     public static final String PATH_NOTIFICATION_LIST = "notification/list";
-    public static final String PATH_TYPE_DEMAND = "type";
+    public static final String PATH_TYPE_DEMAND = "demandType";
     public static final String QUERY_PARAM_INDEX = "index";
     public static final String QUERY_PARAM_ID_DEMAND_TYPE = "idDemandType";
     public static final String QUERY_PARAM_NOTIFICATION_TYPE = "notificationType";

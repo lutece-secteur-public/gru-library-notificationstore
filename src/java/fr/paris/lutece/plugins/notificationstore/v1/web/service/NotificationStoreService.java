@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2023, City of Paris
+ * Copyright (c) 2002-2024, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,6 +35,7 @@ package fr.paris.lutece.plugins.notificationstore.v1.web.service;
 
 import java.util.List;
 
+import fr.paris.lutece.plugins.grubusiness.business.demand.DemandCategory;
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandType;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.DemandResult;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.NotificationResult;
@@ -150,5 +151,52 @@ public class NotificationStoreService
     {
         return this._transportProvider.getDemandTypes( );
     }
+
+    // TODO
+    public void createStatus( String strStatus )
+    {
+    } // plutot un objet DemandStatus ??
+
+    public void deleteStatus( int nStatusId )
+    {
+    }
+
+    public void modifyStatus( String strStatus )
+    {
+    }
+
+    public void getGenericStatusList( )
+    {
+    }
+
+    public void getStatusList( )
+    {
+    }
+
+    public void getStatus( int nStatusId )
+    {
+    }
+
+    // TODO
+    public void createCategory( DemandCategory c )
+    {
+    }
+
+    public void deleteCategory( int nCategoryId )
+    {
+    }
+
+    public void modifyCategory( String strStatus )
+    {
+    }
+
+    public void getCategoryList( )
+    {
+    }
+
+    public void getCategory( int nCategoryId )
+    {
+    }
+    // ...
 
 }
