@@ -33,6 +33,7 @@
  */
 package fr.paris.lutece.plugins.notificationstore.v1.web.rs.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -102,6 +103,107 @@ public class HttpAccessTransport implements IHttpTransportProvider
         }
 
         return StringUtils.EMPTY;
+    }
+    
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public String doPost( String strEndPointUrl, Map<String, String> mapParams, Map<String, String> mapHeadersRequest )
+    {
+        HttpAccess clientHttp = new HttpAccess( );
+        Map<String, String> mapHeadersResponse = new HashMap< >( );
+        
+        String strOutput = StringUtils.EMPTY;
+
+        try
+        {
+            addAuthentication( mapHeadersRequest );
+            strOutput = clientHttp.doPost( strEndPointUrl, mapParams, null, null, mapHeadersRequest, mapHeadersResponse );
+        }
+        catch( Exception e )
+        {
+            _logger.error( "LibraryNotificationstore - Error HttpAccessTransport :" + e.getMessage( ), e );
+        }
+
+        return strOutput;
+    }
+    
+    
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public String doPostJson( String strEndPointUrl, String json, Map<String, String> mapHeadersRequest )
+    {
+        HttpAccess clientHttp = new HttpAccess( );
+        Map<String, String> mapHeadersResponse = new HashMap< >( );
+        
+        String strOutput = StringUtils.EMPTY;
+
+        try
+        {
+            addAuthentication( mapHeadersRequest );
+            strOutput = clientHttp.doPostJSON( strEndPointUrl, json, mapHeadersRequest, mapHeadersResponse );
+        }
+        catch( Exception e )
+        {
+            _logger.error( "LibraryNotificationstore - Error HttpAccessTransport :" + e.getMessage( ), e );
+        }
+
+        return strOutput;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public String doPut( String strEndPointUrl, Map<String, String> mapParams, Map<String, String> mapHeadersRequest )
+    {
+        HttpAccess clientHttp = new HttpAccess( );
+        Map<String, String> mapHeadersResponse = new HashMap< >( );
+        
+        String strOutput = StringUtils.EMPTY;
+
+        try
+        {
+            addAuthentication( mapHeadersRequest );
+            strOutput = clientHttp.doPut( strEndPointUrl, null, null, mapParams, mapHeadersRequest, mapHeadersResponse );
+        }
+        catch( Exception e )
+        {
+            _logger.error( "LibraryNotificationstore - Error HttpAccessTransport :" + e.getMessage( ), e );
+        }
+
+        return strOutput;
+    }
+    
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public String doPutJson( String strEndPointUrl, String json, Map<String, String> mapHeadersRequest )
+    {
+        HttpAccess clientHttp = new HttpAccess( );
+        Map<String, String> mapHeadersResponse = new HashMap< >( );
+        
+        String strOutput = StringUtils.EMPTY;
+
+        try
+        {
+            addAuthentication( mapHeadersRequest );
+            strOutput = clientHttp.doPutJSON( strEndPointUrl, json, mapHeadersRequest, mapHeadersResponse );
+        }
+        catch( Exception e )
+        {
+            _logger.error( "LibraryNotificationstore - Error HttpAccessTransport :" + e.getMessage( ), e );
+        }
+
+        return strOutput;
     }
 
     /**

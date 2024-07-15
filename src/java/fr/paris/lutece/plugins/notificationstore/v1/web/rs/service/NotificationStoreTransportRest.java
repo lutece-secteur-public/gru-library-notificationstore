@@ -39,16 +39,25 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 
+import fr.paris.lutece.plugins.grubusiness.business.demand.DemandCategory;
+import fr.paris.lutece.plugins.grubusiness.business.demand.DemandStatus;
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandType;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.DemandResult;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.NotificationResult;
 import fr.paris.lutece.plugins.grubusiness.service.notification.NotificationException;
 import fr.paris.lutece.plugins.notificationstore.v1.web.service.IHttpTransportProvider;
 import fr.paris.lutece.plugins.notificationstore.v1.web.service.INotificationStoreTransportProvider;
+import fr.paris.lutece.plugins.notificationstore.web.utils.NotificationStoreConstants;
 import fr.paris.lutece.plugins.notificationstore.web.utils.NotificationStoreUtils;
+import fr.paris.lutece.util.ReferenceList;
 import fr.paris.lutece.util.http.SecurityUtil;
 
 /**
@@ -58,17 +67,6 @@ import fr.paris.lutece.util.http.SecurityUtil;
  */
 public class NotificationStoreTransportRest extends AbstractTransportRest implements INotificationStoreTransportProvider
 {
-    // REST CONSTANTS
-    public static final String PATH_DEMAND_LIST = "list";
-    public static final String PATH_DEMAND_STATUS = "status";
-    public static final String PATH_NOTIFICATION_LIST = "notification/list";
-    public static final String PATH_TYPE_DEMAND = "demandType";
-    public static final String QUERY_PARAM_INDEX = "index";
-    public static final String QUERY_PARAM_ID_DEMAND_TYPE = "idDemandType";
-    public static final String QUERY_PARAM_NOTIFICATION_TYPE = "notificationType";
-    public static final String QUERY_PARAM_CUSTOMER_ID = "customerId";
-    public static final String QUERY_PARAM_ID_DEMAND = "idDemand";
-    public static final String QUERY_PARAM_LIST_STATUS = "listStatus";
 
     /**
      * Logger
@@ -100,32 +98,37 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
     }
 
     @Override
-    public DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strNotificationType ) throws NotificationException
+    public DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strLimitResult, String strNotificationType ) throws NotificationException
     {
         _logger.debug( "Get list of demand for customer id " + strCustomerId );
 
         Map<String, String> mapParams = new HashMap<>( );
         if ( StringUtils.isNotEmpty( strCustomerId ) )
         {
-            mapParams.put( QUERY_PARAM_CUSTOMER_ID, strCustomerId );
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_CUSTOMER_ID, strCustomerId );
         }
         if ( StringUtils.isNotEmpty( strIdDemandType ) )
         {
-            mapParams.put( QUERY_PARAM_ID_DEMAND_TYPE, strIdDemandType );
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_ID_DEMAND_TYPE, strIdDemandType );
         }
         if ( StringUtils.isNotEmpty( strIndex ) )
         {
-            mapParams.put( QUERY_PARAM_INDEX, strIndex );
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_INDEX, strIndex );
+        }
+        
+        if ( StringUtils.isNotEmpty( strLimitResult ) )
+        {
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_LIMIT, strLimitResult );
         }
 
         if ( StringUtils.isNotEmpty( strNotificationType ) )
         {
-            mapParams.put( QUERY_PARAM_NOTIFICATION_TYPE, strNotificationType );
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_NOTIFICATION_TYPE, strNotificationType );
         }
 
         try
         {
-            String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_DEMAND_LIST, mapParams, new HashMap<>( ) );
+            String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_DEMAND_LIST, mapParams, new HashMap<>( ) );
 
             return NotificationStoreUtils.jsonToObject( strResponse, new TypeReference<DemandResult>( )
             {
@@ -140,7 +143,7 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
     }
 
     @Override
-    public DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex,
+    public DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex, String strLimitResult,
             String strNotificationType ) throws NotificationException
     {
         _logger.debug( "Get list of demand by status for customer id " + strCustomerId );
@@ -149,28 +152,32 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
 
         if ( StringUtils.isNotEmpty( strCustomerId ) )
         {
-            mapParams.put( QUERY_PARAM_CUSTOMER_ID, strCustomerId );
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_CUSTOMER_ID, strCustomerId );
         }
         if ( StringUtils.isNotEmpty( strIdDemandType ) )
         {
-            mapParams.put( QUERY_PARAM_ID_DEMAND_TYPE, strIdDemandType );
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_ID_DEMAND_TYPE, strIdDemandType );
         }
         if ( StringUtils.isNotEmpty( strIndex ) )
         {
-            mapParams.put( QUERY_PARAM_INDEX, strIndex );
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_INDEX, strIndex );
+        }
+        if ( StringUtils.isNotEmpty( strLimitResult ) )
+        {
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_LIMIT, strLimitResult );
         }
         if ( StringUtils.isNotEmpty( strListStatus ) )
         {
-            mapParams.put( QUERY_PARAM_LIST_STATUS, strListStatus );
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_LIST_STATUS, strListStatus );
         }
         if ( StringUtils.isNotEmpty( strNotificationType ) )
         {
-            mapParams.put( QUERY_PARAM_NOTIFICATION_TYPE, strNotificationType );
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_NOTIFICATION_TYPE, strNotificationType );
         }
 
         try
         {
-            String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_DEMAND_STATUS, mapParams, new HashMap<>( ) );
+            String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_DEMAND_STATUS, mapParams, new HashMap<>( ) );
 
             return NotificationStoreUtils.jsonToObject( strResponse, new TypeReference<DemandResult>( )
             {
@@ -191,20 +198,20 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
         Map<String, String> mapParams = new HashMap<>( );
         if ( StringUtils.isNotEmpty( strCustomerId ) )
         {
-            mapParams.put( QUERY_PARAM_CUSTOMER_ID, strCustomerId );
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_CUSTOMER_ID, strCustomerId );
         }
         if ( StringUtils.isNotEmpty( strIdDemandType ) )
         {
-            mapParams.put( QUERY_PARAM_ID_DEMAND_TYPE, strIdDemandType );
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_ID_DEMAND_TYPE, strIdDemandType );
         }
         if ( StringUtils.isNotEmpty( strIdDemand ) )
         {
-            mapParams.put( QUERY_PARAM_ID_DEMAND, strIdDemand );
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_ID_DEMAND, strIdDemand );
         }
 
         try
         {
-            String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_NOTIFICATION_LIST, mapParams, new HashMap<>( ) );
+            String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_NOTIFICATION_LIST, mapParams, new HashMap<>( ) );
 
             return NotificationStoreUtils.jsonToObject( strResponse, new TypeReference<NotificationResult>( )
             {
@@ -219,25 +226,6 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
         }
     }
 
-    @Override
-    public List<DemandType> getDemandTypes( ) throws NotificationException
-    {
-        _logger.debug( "Get list of demand type " );
-
-        try
-        {
-            String json = _httpTransport.doGet( _strNotificationStoreEndPoint + PATH_TYPE_DEMAND, new HashMap<>( ), new HashMap<>( ) );
-
-            return NotificationStoreUtils.jsonToObject( json, new TypeReference<List<DemandType>>( )
-            {
-            } );
-        }
-        catch( Exception e )
-        {
-            _logger.error( e );
-            throw new NotificationException( e.getMessage( ) );
-        }
-    }
 
     @Override
     public String deleteNotificationByCuid( String strCustomerId ) throws NotificationException
@@ -246,7 +234,7 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
 
         try
         {
-            return _httpTransport.doDelete( _strNotificationStoreEndPoint + strCustomerId, new HashMap<>( ) );
+            return _httpTransport.doDelete( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_DEMAND + strCustomerId, new HashMap<>( ) );
         }
         catch( Exception e )
         {
@@ -255,4 +243,376 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
         }
     }
 
+    @Override
+    public List<DemandCategory> getCategoriesList( ) throws NotificationException
+    {
+        _logger.debug( "Get list of categories" );
+
+        try
+        {
+            String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_CATEGORY, new HashMap<>( ), new HashMap<>( ) );
+
+            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<List<DemandCategory>>( ){} );
+        }
+        catch( Exception e )
+        {
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
+        }
+    }
+
+    @Override
+    public DemandCategory getCategory( int nCategoryId ) throws NotificationException
+    {
+        _logger.debug( "Get category by id" );
+
+        try
+        {
+            String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_CATEGORY + nCategoryId , new HashMap<>( ), new HashMap<>( ) );
+            
+            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<DemandCategory>( ){} );
+        }
+        catch( Exception e )
+        {
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
+        }
+    }
+
+    @Override
+    public DemandCategory createCategory( DemandCategory category ) throws NotificationException
+    {
+        _logger.debug( "Create category" );
+
+        Map<String, String> mapHeaders = new HashMap<>( );
+        Map<String, String> mapParams = new HashMap<>( );
+        mapHeaders.put( HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
+
+        if ( category != null && StringUtils.isNotEmpty( category.getCode( ) ) )
+        {
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_CODE, category.getCode( ) );
+        }
+        if ( category != null && StringUtils.isNotEmpty( category.getLabel( ) ) )
+        {
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_LABEL, category.getLabel( ) );
+        }
+
+        try
+        {
+            String strResponse = _httpTransport.doPost( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_CATEGORY,  mapParams, mapHeaders );
+            
+            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<DemandCategory>( ){} );
+        }
+        catch( Exception e )
+        {
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
+        }
+    }
+
+    @Override
+    public DemandCategory modifyCategory( DemandCategory category ) throws NotificationException
+    {
+        _logger.debug( "Modify category" );
+
+        Map<String, String> mapHeaders = new HashMap<>( );
+        Map<String, String> mapParams = new HashMap<>( );
+        mapHeaders.put( HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
+
+        if ( category != null && StringUtils.isNotEmpty( category.getCode( ) ) )
+        {
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_CODE, category.getCode( ) );
+        }
+        if ( category != null && StringUtils.isNotEmpty( category.getLabel( ) ) )
+        {
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_LABEL, category.getLabel( ) );
+        }
+
+        try
+        {
+            String strResponse = _httpTransport.doPut( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_CATEGORY + category.getId( ) , mapParams, mapHeaders );
+
+            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<DemandCategory>( ){} );
+        }
+        catch( Exception e )
+        {
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
+        }
+    }
+
+    @Override
+    public void deleteCategory( int nCategoryId ) throws NotificationException
+    {
+        _logger.debug( "Delete category by id" );
+
+        try
+        {
+            _httpTransport.doDelete( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_CATEGORY + nCategoryId , new HashMap<>( ) );
+        }
+        catch( Exception e )
+        {
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
+        }
+    }
+
+    @Override
+    public List<DemandStatus> getStatusList( ) throws NotificationException
+    {
+        _logger.debug( "Get list of status" );
+
+        try
+        {
+            String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_STATUS, new HashMap<>( ), new HashMap<>( ) );
+                    
+            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<List<DemandStatus>>( ){} );
+        }
+        catch( Exception e )
+        {
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
+        }
+    }
+    
+    @Override
+    public ReferenceList getGenericStatusList( ) throws NotificationException
+    {
+        _logger.debug( "Get list of generic status" );
+
+        try
+        {
+            String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_GENERIC_STATUS , new HashMap<>( ), new HashMap<>( ) );
+                    
+            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<ReferenceList>( ){} );
+        }
+        catch( Exception e )
+        {
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
+        }
+    }
+
+    @Override
+    public DemandStatus getStatus( int nStatusId ) throws NotificationException
+    {
+        _logger.debug( "Get status by id" );
+
+        try
+        {
+            String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_STATUS + nStatusId , new HashMap<>( ), new HashMap<>( ) );
+            
+            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<DemandStatus>( ){} );
+        }
+        catch( Exception e )
+        {
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
+        }
+    }
+
+    @Override
+    public DemandStatus createStatus( DemandStatus status ) throws NotificationException
+    {
+        _logger.debug( "Create category" );
+
+        try
+        {
+            String json = NotificationStoreUtils.getMapper( ).writeValueAsString( status );
+            
+            String strResponse = _httpTransport.doPostJson( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_STATUS, json, new HashMap<>( ) );
+            
+            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<DemandStatus>( ){} );
+        }
+        catch( Exception e )
+        {
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
+        }
+    }
+
+    @Override
+    public DemandStatus modifyStatus( DemandStatus status ) throws NotificationException
+    {
+        _logger.debug( "Modify category" );
+
+        try
+        {
+            String json = NotificationStoreUtils.getMapper( ).writeValueAsString( status );
+            String strResponse = _httpTransport.doPutJson( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_STATUS , json, new HashMap<>( ) );
+
+            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<DemandStatus>( ){} );
+        }
+        catch( Exception e )
+        {
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
+        }
+    }
+
+    @Override
+    public void deleteStatus( int nStatusId ) throws NotificationException
+    {
+        _logger.debug( "Delete status by id" );
+
+        try
+        {
+            _httpTransport.doDelete( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_STATUS + nStatusId , new HashMap<>( ) );
+        }
+        catch( Exception e )
+        {
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
+        }      
+    }
+    
+    @Override
+    public List<DemandType> getDemandTypes( ) throws NotificationException
+    {
+        _logger.debug( "Get list of demand types" );
+
+        try
+        {
+            String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_DEMAND_TYPES, new HashMap<>( ), new HashMap<>( ) );
+                    
+            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<List<DemandType>>( ){} );
+        }
+        catch( Exception e )
+        {
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
+        }
+    }
+
+    @Override
+    public DemandType getDemandType( int nDemandTypeId ) throws NotificationException
+    {
+        _logger.debug( "Get demand type by id" );
+
+        try
+        {
+            String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_DEMAND_TYPES + nDemandTypeId , new HashMap<>( ), new HashMap<>( ) );
+            
+            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<DemandType>( ){} );
+        }
+        catch( Exception e )
+        {
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
+        }
+    }
+
+    @Override
+    public DemandType createDemandType( DemandType demandType ) throws NotificationException
+    {
+        _logger.debug( "Create demand type" );
+
+        Map<String, String> mapHeaders = new HashMap<>( );
+        Map<String, String> mapParams = new HashMap<>( );
+        mapHeaders.put( HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
+
+        if ( demandType != null && demandType.getIdDemandType( ) > 0 )
+        {
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DT_ID_DEMAND_TYPE,  String.valueOf( demandType.getIdDemandType( ) ));
+        }
+        if ( demandType != null && StringUtils.isNotEmpty( demandType.getLabel( ) ) )
+        {
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DT_LABEL, demandType.getLabel( )  );
+        }
+        if ( demandType != null && StringUtils.isNotEmpty( demandType.getUrl( ) ) )
+        {
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DT_URL, demandType.getUrl( ) );
+        }
+        if ( demandType != null && StringUtils.isNotEmpty( demandType.getAppCode( ) ) )
+        {
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DT_APP_CODE, demandType.getAppCode( ) );
+        }
+        if ( demandType != null && StringUtils.isNotEmpty( demandType.getCategory( ) ) )
+        {
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DT_CATEGORY, demandType.getCategory( )  );
+        }
+
+        try
+        {
+            String strResponse = _httpTransport.doPost( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_DEMAND_TYPES,  mapParams, mapHeaders );
+            
+            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<DemandType>( ){} );
+        }
+        catch( Exception e )
+        {
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
+        }
+    }
+
+    @Override
+    public DemandType modifyDemandType( DemandType demandType ) throws NotificationException
+    {
+        _logger.debug( "Modify demand type" );
+
+        Map<String, String> mapHeaders = new HashMap<>( );
+        Map<String, String> mapParams = new HashMap<>( );
+        mapHeaders.put( HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
+        
+        if ( demandType != null && demandType.getIdDemandType( ) > 0 )
+        {
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DT_ID_DEMAND_TYPE,  String.valueOf( demandType.getIdDemandType( ) ));
+        }
+        if ( demandType != null && StringUtils.isNotEmpty( demandType.getLabel( ) ) )
+        {
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DT_LABEL, demandType.getLabel( )  );
+        }
+        if ( demandType != null && StringUtils.isNotEmpty( demandType.getUrl( ) ) )
+        {
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DT_URL, demandType.getUrl( ) );
+        }
+        if ( demandType != null && StringUtils.isNotEmpty( demandType.getAppCode( ) ) )
+        {
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DT_APP_CODE, demandType.getAppCode( ) );
+        }
+        if ( demandType != null && StringUtils.isNotEmpty( demandType.getCategory( ) ) )
+        {
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DT_CATEGORY, demandType.getCategory( )  );
+        }
+        
+        try
+        {
+            String strResponse = _httpTransport.doPut( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_DEMAND_TYPES + demandType.getId( ) , mapParams, mapHeaders );
+            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<DemandType>( ){} );
+        }
+        catch( Exception e )
+        {
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
+        }
+    }
+
+    @Override
+    public void deleteDemandType( int nDemandTypeId ) throws NotificationException
+    {
+        _logger.debug( "Delete demand type by id" );
+
+        try
+        {
+            _httpTransport.doDelete( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_DEMAND_TYPES + nDemandTypeId , new HashMap<>( ) );
+        }
+        catch( Exception e )
+        {
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
+        }
+    }
+    
+    /**
+     * 
+     * @param strResponse
+     * @return
+     * @throws JsonMappingException
+     * @throws JsonProcessingException
+     */
+    private String getResult ( String strResponse ) throws JsonProcessingException
+    {
+        JsonNode strJsonNode = NotificationStoreUtils.getMapper( ).readTree( strResponse );
+        return strJsonNode.get( NotificationStoreConstants.JSON_RESULT ).toString( );
+    }
 }

@@ -35,10 +35,13 @@ package fr.paris.lutece.plugins.notificationstore.v1.web.service;
 
 import java.util.List;
 
+import fr.paris.lutece.plugins.grubusiness.business.demand.DemandCategory;
+import fr.paris.lutece.plugins.grubusiness.business.demand.DemandStatus;
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandType;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.DemandResult;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.NotificationResult;
 import fr.paris.lutece.plugins.grubusiness.service.notification.NotificationException;
+import fr.paris.lutece.util.ReferenceList;
 
 /**
  * Interface for providing NotificationStore transport.
@@ -53,10 +56,11 @@ public interface INotificationStoreTransportProvider
      * @param strIdDemandType
      * @param strIndex
      *            (Not required)
+     * @param strLimitResult
      * @param strNotificationType
      * @return list of demand
      */
-    DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strNotificationType ) throws NotificationException;
+    DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strLimitResult, String strNotificationType ) throws NotificationException;
 
     /**
      * List of demand by list of status, customer id, type demand id and index
@@ -68,9 +72,10 @@ public interface INotificationStoreTransportProvider
      * @param strNotificationType
      * @param strIndex
      *            (Not required)
+     * @param strLimitResult
      * @return list of demand
      */
-    DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex, String strNotificationType )
+    DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex, String strLimitResult, String strNotificationType )
             throws NotificationException;
 
     /**
@@ -84,13 +89,6 @@ public interface INotificationStoreTransportProvider
     NotificationResult getListNotification( String strCustomerId, String strIdDemand, String strIdDemandType ) throws NotificationException;
 
     /**
-     * Gets list of demand types
-     * 
-     * @return list of demand types
-     */
-    List<DemandType> getDemandTypes( ) throws NotificationException;
-
-    /**
      * delete all notifications of a customer
      * 
      * @param strCustomerId
@@ -98,5 +96,128 @@ public interface INotificationStoreTransportProvider
      * @throws NotificationException
      */
     String deleteNotificationByCuid( String strCustomerId ) throws NotificationException;
+    
+    /**
+     * Gets list of categories
+     * @return list of categories
+     * @throws NotificationException
+     */
+    List<DemandCategory> getCategoriesList( ) throws NotificationException;
+
+    
+    /**
+     * Get category by id
+     * @param nCategoryId
+     * @return the category
+     * @throws NotificationException
+     */
+    DemandCategory getCategory( int nCategoryId ) throws NotificationException;
+    
+    /**
+     * Create category
+     * @param category
+     * @return the category created
+     * @throws NotificationException
+     */
+    DemandCategory createCategory( DemandCategory category ) throws NotificationException;
+
+    /**
+     * Modify category
+     * @param category
+     * @return the category modified
+     * @throws NotificationException
+     */
+    DemandCategory modifyCategory( DemandCategory category  ) throws NotificationException;
+    
+    /**
+     * Delete category
+     * @param nCategoryId
+     * @throws NotificationException
+     */
+    void deleteCategory( int nCategoryId ) throws NotificationException;
+      
+    /**
+     * Gets list of demand types
+     * @return list of demand types
+     * @throws NotificationException
+     */
+    List<DemandType> getDemandTypes( ) throws NotificationException;
+    
+    /**
+     * Get demand type by id
+     * @param nDemandTypeId
+     * @return the demand type
+     * @throws NotificationException
+     */
+    DemandType getDemandType( int nDemandTypeId ) throws NotificationException;
+    
+    /**
+     * Create demand type
+     * @param demand type
+     * @return the demand type created
+     * @throws NotificationException
+     */
+    DemandType createDemandType( DemandType demandType ) throws NotificationException;
+
+    /**
+     * Modify demand type
+     * @param demand type
+     * @return the demand type modified
+     * @throws NotificationException
+     */
+    DemandType modifyDemandType( DemandType demandType  ) throws NotificationException;
+    
+    /**
+     * Delete demand type
+     * @param nDemandTypeId
+     * @throws NotificationException
+     */
+    void deleteDemandType( int nDemandTypeId ) throws NotificationException;
+    
+    
+    /**
+     * Gets list of status
+     * @return list of status
+     * @throws NotificationException
+     */
+    List<DemandStatus> getStatusList( ) throws NotificationException;
+
+    /**
+     * Gets list of generic status
+     * @return list of generic status
+     * @throws NotificationException
+     */
+    ReferenceList getGenericStatusList( ) throws NotificationException;
+    
+    /**
+     * Get status by id
+     * @param nStatusId
+     * @return the status
+     * @throws NotificationException
+     */
+    DemandStatus getStatus( int nStatusId ) throws NotificationException;
+    
+    /**
+     * Create status
+     * @param status
+     * @return the status created
+     * @throws NotificationException
+     */
+    DemandStatus createStatus( DemandStatus status ) throws NotificationException;
+
+    /**
+     * Modify status
+     * @param status
+     * @return the status modified
+     * @throws NotificationException
+     */
+    DemandStatus modifyStatus( DemandStatus status  ) throws NotificationException;
+    
+    /**
+     * Delete status
+     * @param nStatusId
+     * @throws NotificationException
+     */
+    void deleteStatus( int nStatusId ) throws NotificationException;
 
 }

@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.notificationstore.v1.web.service;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -53,7 +52,59 @@ public interface IHttpTransportProvider
      * @return response list
      */
     String doGet( String strEndPointUrl, Map<String, String> mapParams, Map<String, String> mapHeadersRequest );
+    
+    /**
+     * make POST request on given url with params and headers
+     * 
+     * @param strUrl
+     *            url to call
+     * @param mapParams
+     *            params to post
+     * @param mapHeadersRequest
+     *            headers of the request
+     * @return response body as String
+     */
+    String doPost( String strEndPointUrl, Map<String, String> mapParams, Map<String, String> mapHeadersRequest );
 
+    /**
+     * make POST JSON request on given url with json and headers
+     * 
+     * @param strUrl
+     *            url to call
+     * @param json
+     *            json
+     * @param mapHeadersRequest
+     *            headers of the request
+     * @return response body as String
+     */
+    String doPostJson( String strEndPointUrl, String json, Map<String, String> mapHeadersRequest );
+    
+    /**
+     * make Put request on given url with params and headers
+     * 
+     * @param strUrl
+     *            url to call
+     * @param mapParams
+     *            params to post
+     * @param mapHeadersRequest
+     *            headers of the request
+     * @return response body as String
+     */
+    String doPut( String strEndPointUrl, Map<String, String> mapParams, Map<String, String> mapHeadersRequest );
+    
+    /**
+     * make Put json request on given url with Json and headers
+     * 
+     * @param strUrl
+     *            url to call
+     * @param json
+     *            json
+     * @param mapHeadersRequest
+     *            headers of the request
+     * @return response body as String
+     */
+    String doPutJson( String strEndPointUrl, String json, Map<String, String> mapHeadersRequest );
+    
     /**
      * set end point
      * 
