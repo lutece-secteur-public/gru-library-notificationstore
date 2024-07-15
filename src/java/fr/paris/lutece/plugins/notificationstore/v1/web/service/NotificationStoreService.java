@@ -36,10 +36,12 @@ package fr.paris.lutece.plugins.notificationstore.v1.web.service;
 import java.util.List;
 
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandCategory;
+import fr.paris.lutece.plugins.grubusiness.business.demand.DemandStatus;
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandType;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.DemandResult;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.NotificationResult;
 import fr.paris.lutece.plugins.grubusiness.service.notification.NotificationException;
+import fr.paris.lutece.util.ReferenceList;
 
 /**
  * NotificationStoreService
@@ -88,13 +90,14 @@ public class NotificationStoreService
      * @param strIdDemandType
      * @param strIndex
      *            (Not required)
+     * @param strLimitResult
      * @param strNotificationType
      *            (Not required)
      * @return list of demand
      */
-    public DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strNotificationType ) throws NotificationException
+    public DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strLimitResult, String strNotificationType ) throws NotificationException
     {
-        return this._transportProvider.getListDemand( strCustomerId, strIdDemandType, strIndex, strNotificationType );
+        return this._transportProvider.getListDemand( strCustomerId, strIdDemandType, strIndex, strLimitResult, strNotificationType );
     }
 
     /**
@@ -106,14 +109,15 @@ public class NotificationStoreService
      * @param strIdDemandType
      * @param strIndex
      *            (Not required)
+     * @param strLimitResult
      * @param strNotificationType
      *            (Not required)
      * @return list of demand
      */
-    public DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex,
+    public DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex, String strLimitResult,
             String strNotificationType ) throws NotificationException
     {
-        return this._transportProvider.getListOfDemandByStatus( strCustomerId, strListStatus, strIdDemandType, strIndex, strNotificationType );
+        return this._transportProvider.getListOfDemandByStatus( strCustomerId, strListStatus, strIdDemandType, strIndex, strLimitResult, strNotificationType );
     }
 
     /**
@@ -141,62 +145,176 @@ public class NotificationStoreService
     {
         return this._transportProvider.deleteNotificationByCuid( strCustomerId );
     }
+    
+    /**
+     * Gets list of categories
+     * @return list of categories
+     * @throws NotificationException 
+     */
+    public List<DemandCategory> getCategoriesList( ) throws NotificationException
+    {
+        return this._transportProvider.getCategoriesList( );
+    }
+    
+    /**
+     * Get category by id
+     * @param nCategoryId
+     * @return the category
+     * @throws NotificationException 
+     */
+    public DemandCategory getCategory( int nCategoryId ) throws NotificationException
+    {
+        return this._transportProvider.getCategory( nCategoryId );
+    }
+    
+    /**
+     * Create category
+     * @param category
+     * @return the category created
+     * @throws NotificationException 
+     */
+    public DemandCategory createCategory( DemandCategory category ) throws NotificationException
+    {
+        return this._transportProvider.createCategory( category );
+    }
 
     /**
+     * Modify category
+     * @param category
+     * @return the category modified
+     * @throws NotificationException 
+     */
+    public DemandCategory modifyCategory( DemandCategory category  ) throws NotificationException
+    {
+        return this._transportProvider.modifyCategory( category );
+    }
+    
+    /**
+     * Delete category
+     * @param nCategoryId
+     * @throws NotificationException 
+     */
+    public void deleteCategory( int nCategoryId ) throws NotificationException
+    {
+        this._transportProvider.deleteCategory( nCategoryId );
+    }
+    
+    
+    /**
      * Gets list of demand types
-     * 
      * @return list of demand types
+     * @throws NotificationException 
      */
     public List<DemandType> getDemandTypes( ) throws NotificationException
     {
         return this._transportProvider.getDemandTypes( );
     }
-
-    // TODO
-    public void createStatus( String strStatus )
+    
+    /**
+     * Get demand type by id
+     * @param nDemandTypeId
+     * @return the demand type
+     * @throws NotificationException 
+     */
+    public DemandType getDemandType( int nDemandTypeId ) throws NotificationException
     {
-    } // plutot un objet DemandStatus ??
-
-    public void deleteStatus( int nStatusId )
+        return this._transportProvider.getDemandType( nDemandTypeId );
+    }
+    
+    /**
+     * Create demand type
+     * @param demand type
+     * @return the demand type created
+     * @throws NotificationException 
+     */
+    public DemandType createDemandType( DemandType demandType ) throws NotificationException
     {
+        return this._transportProvider.createDemandType( demandType );
     }
 
-    public void modifyStatus( String strStatus )
+    /**
+     * Modify demand type
+     * @param demand type
+     * @return the demand type modified
+     * @throws NotificationException 
+     */
+    public DemandType modifyDemandType( DemandType demandType ) throws NotificationException
     {
+        return this._transportProvider.modifyDemandType( demandType );
+    }
+    
+    /**
+     * Delete demand type
+     * @param nDemandTypeId
+     * @throws NotificationException 
+     */
+    public void deleteDemandType( int nDemandTypeId ) throws NotificationException
+    {
+        this._transportProvider.deleteDemandType( nDemandTypeId );
+    }
+    
+    
+    /**
+     * Gets list of status
+     * @return list of status
+     * @throws NotificationException 
+     */
+    public List<DemandStatus> getStatusList( ) throws NotificationException
+    {
+        return this._transportProvider.getStatusList( );
+    }
+    
+    /**
+     * Gets list of generic status
+     * @return list of generic status
+     * @throws NotificationException 
+     */
+    public ReferenceList getGenericStatusList( ) throws NotificationException
+    {
+        return this._transportProvider.getGenericStatusList( );
+    }
+    
+    /**
+     * Get status by id
+     * @param nStatusId
+     * @return the status
+     * @throws NotificationException 
+     */
+    public DemandStatus getStatus( int nStatusId ) throws NotificationException
+    {
+        return this._transportProvider.getStatus( nStatusId );
+    }
+    
+    /**
+     * Create status
+     * @param status
+     * @return the status created
+     * @throws NotificationException 
+     */
+    public DemandStatus createStatus( DemandStatus status ) throws NotificationException
+    {
+        return this._transportProvider.createStatus( status );
     }
 
-    public void getGenericStatusList( )
+    /**
+     * Modify status
+     * @param status
+     * @return the status modified
+     * @throws NotificationException 
+     */
+    public DemandStatus modifyStatus( DemandStatus status  ) throws NotificationException
     {
+        return this._transportProvider.modifyStatus( status );
     }
-
-    public void getStatusList( )
+    
+    /**
+     * Delete status
+     * @param nStatusId
+     * @throws NotificationException 
+     */
+    public void deleteStatus( int nStatusId ) throws NotificationException
     {
+        this._transportProvider.deleteCategory( nStatusId );
     }
-
-    public void getStatus( int nStatusId )
-    {
-    }
-
-    // TODO
-    public void createCategory( DemandCategory c )
-    {
-    }
-
-    public void deleteCategory( int nCategoryId )
-    {
-    }
-
-    public void modifyCategory( String strStatus )
-    {
-    }
-
-    public void getCategoryList( )
-    {
-    }
-
-    public void getCategory( int nCategoryId )
-    {
-    }
-    // ...
 
 }

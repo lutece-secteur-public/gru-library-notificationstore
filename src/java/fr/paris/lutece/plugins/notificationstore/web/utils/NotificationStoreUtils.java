@@ -33,8 +33,6 @@
  */
 package fr.paris.lutece.plugins.notificationstore.web.utils;
 
-import org.apache.log4j.Logger;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -48,8 +46,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class NotificationStoreUtils
 {
-
-    private static Logger _logger = Logger.getLogger( NotificationStoreUtils.class );
     private static ObjectMapper _mapper = null;
 
     /**
@@ -85,7 +81,7 @@ public class NotificationStoreUtils
      * @throws JsonProcessingException
      * @throws JsonMappingException
      */
-    public static <T> T jsonToObject( String jsonStr, TypeReference<T> typeReference ) throws JsonMappingException, JsonProcessingException
+    public static <T> T jsonToObject( String jsonStr, TypeReference<T> typeReference ) throws JsonProcessingException
     {
         T response = getMapper( ).readValue( jsonStr, typeReference );
 

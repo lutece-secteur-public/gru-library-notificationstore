@@ -40,13 +40,17 @@ import org.apache.log4j.Logger;
 
 import fr.paris.lutece.plugins.grubusiness.business.customer.Customer;
 import fr.paris.lutece.plugins.grubusiness.business.demand.Demand;
+import fr.paris.lutece.plugins.grubusiness.business.demand.DemandCategory;
+import fr.paris.lutece.plugins.grubusiness.business.demand.DemandStatus;
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandType;
 import fr.paris.lutece.plugins.grubusiness.business.notification.MyDashboardNotification;
 import fr.paris.lutece.plugins.grubusiness.business.notification.Notification;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.DemandDisplay;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.DemandResult;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.NotificationResult;
+import fr.paris.lutece.plugins.grubusiness.service.notification.NotificationException;
 import fr.paris.lutece.plugins.notificationstore.v1.web.service.INotificationStoreTransportProvider;
+import fr.paris.lutece.util.ReferenceList;
 
 /**
  * 
@@ -69,14 +73,14 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
     }
 
     @Override
-    public DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strNotificationType )
+    public DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strLimitResult, String strNotificationType )
     {
         _logger.debug( "MOCK : Get list of demand for customer id " + strCustomerId );
         return getMockDemandResult( strCustomerId, strIdDemandType, null );
     }
 
     @Override
-    public DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex,
+    public DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex, String strLimitResult,
             String strNotificationType )
     {
         _logger.debug( "MOCK : Get list of demand by status for customer id " + strCustomerId );
@@ -214,7 +218,7 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
     private DemandDisplay getOneMockDemandDisplay( int id, String demandType, long creationDate, long modifyDate, String status, Customer customer )
     {
         Demand demand = new Demand( );
-        demand.setDemandId( id );
+        demand.setId( id );
         demand.setTypeId( demandType );
         demand.setCreationDate( creationDate );
         demand.setModifyDate( modifyDate );
@@ -232,6 +236,111 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
     {
 
         return null;
+    }
+
+    @Override
+    public List<DemandCategory> getCategoriesList( ) throws NotificationException
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public DemandCategory getCategory( int nCategoryId ) throws NotificationException
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public DemandCategory createCategory( DemandCategory category ) throws NotificationException
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public DemandCategory modifyCategory( DemandCategory category ) throws NotificationException
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void deleteCategory( int nCategoryId ) throws NotificationException
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public List<DemandStatus> getStatusList( ) throws NotificationException
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public DemandStatus getStatus( int nStatusId ) throws NotificationException
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public DemandStatus createStatus( DemandStatus status ) throws NotificationException
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public DemandStatus modifyStatus( DemandStatus status ) throws NotificationException
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void deleteStatus( int nStatusId ) throws NotificationException
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public ReferenceList getGenericStatusList( ) throws NotificationException
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public DemandType getDemandType( int nDemandTypeId ) throws NotificationException
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public DemandType createDemandType( DemandType demandType ) throws NotificationException
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public DemandType modifyDemandType( DemandType demandType ) throws NotificationException
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void deleteDemandType( int nDemandTypeId ) throws NotificationException
+    {
+        // TODO Auto-generated method stub
+        
     }
 
 }
