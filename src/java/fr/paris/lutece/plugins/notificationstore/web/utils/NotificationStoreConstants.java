@@ -16,16 +16,17 @@ public class NotificationStoreConstants
     }
     
     // REST PATHS
-    public static final String PATH_DEMAND = "demands/";
+    public static final String PATH_DEMAND = "demand/";
+    public static final String PATH_NOTIFICATION = "notification/";
     public static final String PATH_DEMAND_LIST = PATH_DEMAND + "list";
     public static final String PATH_DEMAND_STATUS =  PATH_DEMAND + "status";
-    public static final String PATH_NOTIFICATION_LIST = PATH_DEMAND + "notifications";
-    public static final String PATH_TYPE_DEMAND = PATH_DEMAND + "demand_types";
+    public static final String PATH_NOTIFICATION_LIST = PATH_NOTIFICATION + "list";
+    public static final String PATH_TYPE_DEMAND = PATH_DEMAND + "demandType";
     
     public static final String PATH_CATEGORY = "category/";
     public static final String PATH_STATUS = "status/";
-    public static final String PATH_GENERIC_STATUS = PATH_STATUS + "generic_status";
-    public static final String PATH_DEMAND_TYPES = "demand_types/";
+    public static final String PATH_GENERIC_STATUS = PATH_STATUS + "genericStatus";
+    public static final String PATH_DEMAND_TYPES = "demandType/";
 
     
     //QUERY PARAMETERS
