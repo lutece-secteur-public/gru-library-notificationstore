@@ -218,7 +218,7 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
     private DemandDisplay getOneMockDemandDisplay( int id, String demandType, long creationDate, long modifyDate, String status, Customer customer )
     {
         Demand demand = new Demand( );
-        demand.setId( id );
+        demand.setUID( id );
         demand.setTypeId( demandType );
         demand.setCreationDate( creationDate );
         demand.setModifyDate( modifyDate );
