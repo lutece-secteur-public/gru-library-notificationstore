@@ -35,7 +35,6 @@ package fr.paris.lutece.plugins.notificationstore.v1.web.service;
 
 import java.util.List;
 
-import fr.paris.lutece.plugins.grubusiness.business.demand.DemandCategory;
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandStatus;
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandType;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.DemandResult;
@@ -145,60 +144,6 @@ public class NotificationStoreService
     {
         return this._transportProvider.deleteNotificationByCuid( strCustomerId );
     }
-    
-    /**
-     * Gets list of categories
-     * @return list of categories
-     * @throws NotificationException 
-     */
-    public List<DemandCategory> getCategoriesList( ) throws NotificationException
-    {
-        return this._transportProvider.getCategoriesList( );
-    }
-    
-    /**
-     * Get category by id
-     * @param nCategoryId
-     * @return the category
-     * @throws NotificationException 
-     */
-    public DemandCategory getCategory( int nCategoryId ) throws NotificationException
-    {
-        return this._transportProvider.getCategory( nCategoryId );
-    }
-    
-    /**
-     * Create category
-     * @param category
-     * @return the category created
-     * @throws NotificationException 
-     */
-    public DemandCategory createCategory( DemandCategory category ) throws NotificationException
-    {
-        return this._transportProvider.createCategory( category );
-    }
-
-    /**
-     * Modify category
-     * @param category
-     * @return the category modified
-     * @throws NotificationException 
-     */
-    public DemandCategory modifyCategory( DemandCategory category  ) throws NotificationException
-    {
-        return this._transportProvider.modifyCategory( category );
-    }
-    
-    /**
-     * Delete category
-     * @param nCategoryId
-     * @throws NotificationException 
-     */
-    public void deleteCategory( int nCategoryId ) throws NotificationException
-    {
-        this._transportProvider.deleteCategory( nCategoryId );
-    }
-    
     
     /**
      * Gets list of demand types
@@ -314,7 +259,7 @@ public class NotificationStoreService
      */
     public void deleteStatus( int nStatusId ) throws NotificationException
     {
-        this._transportProvider.deleteCategory( nStatusId );
+        this._transportProvider.deleteStatus( nStatusId );
     }
 
 }

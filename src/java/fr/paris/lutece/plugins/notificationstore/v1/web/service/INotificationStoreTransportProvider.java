@@ -35,7 +35,6 @@ package fr.paris.lutece.plugins.notificationstore.v1.web.service;
 
 import java.util.List;
 
-import fr.paris.lutece.plugins.grubusiness.business.demand.DemandCategory;
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandStatus;
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandType;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.DemandResult;
@@ -97,44 +96,6 @@ public interface INotificationStoreTransportProvider
      */
     String deleteNotificationByCuid( String strCustomerId ) throws NotificationException;
     
-    /**
-     * Gets list of categories
-     * @return list of categories
-     * @throws NotificationException
-     */
-    List<DemandCategory> getCategoriesList( ) throws NotificationException;
-
-    
-    /**
-     * Get category by id
-     * @param nCategoryId
-     * @return the category
-     * @throws NotificationException
-     */
-    DemandCategory getCategory( int nCategoryId ) throws NotificationException;
-    
-    /**
-     * Create category
-     * @param category
-     * @return the category created
-     * @throws NotificationException
-     */
-    DemandCategory createCategory( DemandCategory category ) throws NotificationException;
-
-    /**
-     * Modify category
-     * @param category
-     * @return the category modified
-     * @throws NotificationException
-     */
-    DemandCategory modifyCategory( DemandCategory category  ) throws NotificationException;
-    
-    /**
-     * Delete category
-     * @param nCategoryId
-     * @throws NotificationException
-     */
-    void deleteCategory( int nCategoryId ) throws NotificationException;
       
     /**
      * Gets list of demand types

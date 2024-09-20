@@ -40,7 +40,6 @@ import org.apache.log4j.Logger;
 
 import fr.paris.lutece.plugins.grubusiness.business.customer.Customer;
 import fr.paris.lutece.plugins.grubusiness.business.demand.Demand;
-import fr.paris.lutece.plugins.grubusiness.business.demand.DemandCategory;
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandStatus;
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandType;
 import fr.paris.lutece.plugins.grubusiness.business.notification.MyDashboardNotification;
@@ -236,41 +235,6 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
     {
 
         return null;
-    }
-
-    @Override
-    public List<DemandCategory> getCategoriesList( ) throws NotificationException
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public DemandCategory getCategory( int nCategoryId ) throws NotificationException
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public DemandCategory createCategory( DemandCategory category ) throws NotificationException
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public DemandCategory modifyCategory( DemandCategory category ) throws NotificationException
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void deleteCategory( int nCategoryId ) throws NotificationException
-    {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override

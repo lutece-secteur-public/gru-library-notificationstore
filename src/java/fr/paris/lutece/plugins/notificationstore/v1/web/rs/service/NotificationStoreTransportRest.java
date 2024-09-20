@@ -47,7 +47,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 
-import fr.paris.lutece.plugins.grubusiness.business.demand.DemandCategory;
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandStatus;
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandType;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.DemandResult;
@@ -235,120 +234,6 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
         try
         {
             return _httpTransport.doDelete( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_DEMAND + strCustomerId, new HashMap<>( ) );
-        }
-        catch( Exception e )
-        {
-            _logger.error( e );
-            throw new NotificationException( e.getMessage( ) );
-        }
-    }
-
-    @Override
-    public List<DemandCategory> getCategoriesList( ) throws NotificationException
-    {
-        _logger.debug( "Get list of categories" );
-
-        try
-        {
-            String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_CATEGORY, new HashMap<>( ), new HashMap<>( ) );
-
-            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<List<DemandCategory>>( ){} );
-        }
-        catch( Exception e )
-        {
-            _logger.error( e );
-            throw new NotificationException( e.getMessage( ) );
-        }
-    }
-
-    @Override
-    public DemandCategory getCategory( int nCategoryId ) throws NotificationException
-    {
-        _logger.debug( "Get category by id" );
-
-        try
-        {
-            String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_CATEGORY + nCategoryId , new HashMap<>( ), new HashMap<>( ) );
-            
-            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<DemandCategory>( ){} );
-        }
-        catch( Exception e )
-        {
-            _logger.error( e );
-            throw new NotificationException( e.getMessage( ) );
-        }
-    }
-
-    @Override
-    public DemandCategory createCategory( DemandCategory category ) throws NotificationException
-    {
-        _logger.debug( "Create category" );
-
-        Map<String, String> mapHeaders = new HashMap<>( );
-        Map<String, String> mapParams = new HashMap<>( );
-        mapHeaders.put( HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
-
-        if ( category != null && StringUtils.isNotEmpty( category.getCode( ) ) )
-        {
-            mapParams.put( NotificationStoreConstants.QUERY_PARAM_CODE, category.getCode( ) );
-        }
-        if ( category != null && StringUtils.isNotEmpty( category.getLabel( ) ) )
-        {
-            mapParams.put( NotificationStoreConstants.QUERY_PARAM_LABEL, category.getLabel( ) );
-        }
-
-        try
-        {
-            String strResponse = _httpTransport.doPost( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_CATEGORY,  mapParams, mapHeaders );
-            
-            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<DemandCategory>( ){} );
-        }
-        catch( Exception e )
-        {
-            _logger.error( e );
-            throw new NotificationException( e.getMessage( ) );
-        }
-    }
-
-    @Override
-    public DemandCategory modifyCategory( DemandCategory category ) throws NotificationException
-    {
-        _logger.debug( "Modify category" );
-
-        Map<String, String> mapHeaders = new HashMap<>( );
-        Map<String, String> mapParams = new HashMap<>( );
-        mapHeaders.put( HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
-
-        if ( category != null && StringUtils.isNotEmpty( category.getCode( ) ) )
-        {
-            mapParams.put( NotificationStoreConstants.QUERY_PARAM_CODE, category.getCode( ) );
-        }
-        if ( category != null && StringUtils.isNotEmpty( category.getLabel( ) ) )
-        {
-            mapParams.put( NotificationStoreConstants.QUERY_PARAM_LABEL, category.getLabel( ) );
-        }
-
-        try
-        {
-            String strResponse = _httpTransport.doPut( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_CATEGORY + category.getId( ) , mapParams, mapHeaders );
-
-            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<DemandCategory>( ){} );
-        }
-        catch( Exception e )
-        {
-            _logger.error( e );
-            throw new NotificationException( e.getMessage( ) );
-        }
-    }
-
-    @Override
-    public void deleteCategory( int nCategoryId ) throws NotificationException
-    {
-        _logger.debug( "Delete category by id" );
-
-        try
-        {
-            _httpTransport.doDelete( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_CATEGORY + nCategoryId , new HashMap<>( ) );
         }
         catch( Exception e )
         {
