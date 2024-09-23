@@ -250,7 +250,7 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
 
         try
         {
-            String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_CATEGORY, new HashMap<>( ), new HashMap<>( ) );
+            String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_CATEGORY_LIST, new HashMap<>( ), new HashMap<>( ) );
 
             return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<List<DemandCategory>>( ){} );
         }
@@ -296,6 +296,10 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
         {
             mapParams.put( NotificationStoreConstants.QUERY_PARAM_LABEL, category.getLabel( ) );
         }
+        if ( category != null )
+        {
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DEFAULT, String.valueOf( category.isDefault( ) ) );
+        }
 
         try
         {
@@ -326,6 +330,10 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
         if ( category != null && StringUtils.isNotEmpty( category.getLabel( ) ) )
         {
             mapParams.put( NotificationStoreConstants.QUERY_PARAM_LABEL, category.getLabel( ) );
+        }
+        if ( category != null )
+        {
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DEFAULT, String.valueOf( category.isDefault( ) ) );
         }
 
         try

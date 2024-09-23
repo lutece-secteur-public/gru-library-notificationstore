@@ -314,7 +314,7 @@ public class NotificationStoreService
      */
     public void deleteStatus( int nStatusId ) throws NotificationException
     {
-        this._transportProvider.deleteCategory( nStatusId );
+        this._transportProvider.deleteStatus( nStatusId );
     }
 
 }
