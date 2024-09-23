@@ -24,6 +24,7 @@ public class NotificationStoreConstants
     public static final String PATH_TYPE_DEMAND = PATH_DEMAND + "demandType";
     
     public static final String PATH_CATEGORY = "category/";
+    public static final String PATH_CATEGORY_LIST = PATH_CATEGORY + "list";
     public static final String PATH_STATUS = "status/";
     public static final String PATH_GENERIC_STATUS = PATH_STATUS + "genericStatus";
     public static final String PATH_DEMAND_TYPES = "demandType/";
@@ -42,6 +43,7 @@ public class NotificationStoreConstants
     public static final String QUERY_PARAM_ID = "id";
     public static final String QUERY_PARAM_CODE = "code";
     public static final String QUERY_PARAM_LABEL = "label";
+    public static final String QUERY_PARAM_DEFAULT = "isDefault";
     
     //DEMAND TYPE
     public static final String QUERY_PARAM_DT_ID_DEMAND_TYPE = "id_demand_type";
