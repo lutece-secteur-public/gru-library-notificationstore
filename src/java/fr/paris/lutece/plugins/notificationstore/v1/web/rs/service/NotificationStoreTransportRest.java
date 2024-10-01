@@ -623,4 +623,20 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
         JsonNode strJsonNode = NotificationStoreUtils.getMapper( ).readTree( strResponse );
         return strJsonNode.get( NotificationStoreConstants.JSON_RESULT ).toString( );
     }
+
+    @Override
+    public void deleteAllDemandsAndNotifications( String strCustomerId ) throws NotificationException
+    {
+        _logger.debug( "Delete all demands and notifications for customer id " + strCustomerId );
+
+        try
+        {
+            _httpTransport.doDelete( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_DEMAND + strCustomerId , new HashMap<>( ) );
+        }
+        catch( Exception e )
+        {
+            _logger.error( e );
+            throw new NotificationException( e.getMessage( ) );
+        }
+    }
 }
