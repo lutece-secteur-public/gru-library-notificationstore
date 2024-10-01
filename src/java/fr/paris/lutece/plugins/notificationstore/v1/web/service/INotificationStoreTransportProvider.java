@@ -219,5 +219,15 @@ public interface INotificationStoreTransportProvider
      * @throws NotificationException
      */
     void deleteStatus( int nStatusId ) throws NotificationException;
+    
+    /**
+     * Deleting all demands from a user by their customer id
+     * Also removing elements that are linked to user demands
+     * (Notification, NotificationContent, NotificationEvent, File..)
+     * @param strCustomerId
+     * @throws NotificationException
+     */
+    void deleteAllDemandsAndNotifications ( String strCustomerId ) throws NotificationException;
+    
 
 }

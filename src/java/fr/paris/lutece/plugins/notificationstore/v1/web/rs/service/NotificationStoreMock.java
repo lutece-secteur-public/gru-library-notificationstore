@@ -343,4 +343,11 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
         
     }
 
+    @Override
+    public void deleteAllDemandsAndNotifications( String strCustomerId )
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
 }
