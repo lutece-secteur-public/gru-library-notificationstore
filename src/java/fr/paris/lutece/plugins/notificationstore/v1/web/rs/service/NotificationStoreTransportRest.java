@@ -48,6 +48,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandCategory;
 import fr.paris.lutece.plugins.grubusiness.business.demand.TemporaryStatus;
@@ -77,6 +78,8 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
 
     /** URL for NotificationStore REST service */
     private String _strNotificationStoreEndPoint;
+    
+    private ObjectMapper _mapper = new ObjectMapper();
 
     /**
      * Simple Constructor
@@ -531,35 +534,24 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
     public DemandType createDemandType( DemandType demandType ) throws NotificationException
     {
         _logger.debug( "Create demand type" );
-
+        
+        if (demandType == null)
+        {
+        	throw new NotificationException( "demand type is null" );
+        }
+        
+        
         Map<String, String> mapHeaders = new HashMap<>( );
-        Map<String, String> mapParams = new HashMap<>( );
-        mapHeaders.put( HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
-
-        if ( demandType != null && demandType.getIdDemandType( ) > 0 )
-        {
-            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DT_ID_DEMAND_TYPE,  String.valueOf( demandType.getIdDemandType( ) ));
-        }
-        if ( demandType != null && StringUtils.isNotEmpty( demandType.getLabel( ) ) )
-        {
-            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DT_LABEL, demandType.getLabel( )  );
-        }
-        if ( demandType != null && StringUtils.isNotEmpty( demandType.getUrl( ) ) )
-        {
-            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DT_URL, demandType.getUrl( ) );
-        }
-        if ( demandType != null && StringUtils.isNotEmpty( demandType.getAppCode( ) ) )
-        {
-            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DT_APP_CODE, demandType.getAppCode( ) );
-        }
-        if ( demandType != null && StringUtils.isNotEmpty( demandType.getCategory( ) ) )
-        {
-            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DT_CATEGORY, demandType.getCategory( )  );
-        }
+        mapHeaders.put( HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
         try
         {
-            String strResponse = _httpTransport.doPost( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_DEMAND_TYPES,  mapParams, mapHeaders );
+        	String strJson = _mapper.writeValueAsString( demandType );
+        	
+            String strResponse = _httpTransport.doPostJson( 
+            		_strNotificationStoreEndPoint + NotificationStoreConstants.PATH_DEMAND_TYPES, 
+            		strJson, 
+            		mapHeaders);
             
             return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<DemandType>( ){} );
         }
@@ -577,32 +569,17 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
 
         Map<String, String> mapHeaders = new HashMap<>( );
         Map<String, String> mapParams = new HashMap<>( );
-        mapHeaders.put( HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
-        
-        if ( demandType != null && demandType.getIdDemandType( ) > 0 )
-        {
-            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DT_ID_DEMAND_TYPE,  String.valueOf( demandType.getIdDemandType( ) ));
-        }
-        if ( demandType != null && StringUtils.isNotEmpty( demandType.getLabel( ) ) )
-        {
-            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DT_LABEL, demandType.getLabel( )  );
-        }
-        if ( demandType != null && StringUtils.isNotEmpty( demandType.getUrl( ) ) )
-        {
-            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DT_URL, demandType.getUrl( ) );
-        }
-        if ( demandType != null && StringUtils.isNotEmpty( demandType.getAppCode( ) ) )
-        {
-            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DT_APP_CODE, demandType.getAppCode( ) );
-        }
-        if ( demandType != null && StringUtils.isNotEmpty( demandType.getCategory( ) ) )
-        {
-            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DT_CATEGORY, demandType.getCategory( )  );
-        }
+        mapHeaders.put( HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         
         try
         {
-            String strResponse = _httpTransport.doPut( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_DEMAND_TYPES + demandType.getId( ) , mapParams, mapHeaders );
+        	String strJson = _mapper.writeValueAsString( demandType );
+        	
+            String strResponse = _httpTransport.doPutJson( 
+            		_strNotificationStoreEndPoint + NotificationStoreConstants.PATH_DEMAND_TYPES + demandType.getId( ), 
+            		strJson, 
+            		mapHeaders );
+            
             return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<DemandType>( ){} );
         }
         catch( Exception e )
