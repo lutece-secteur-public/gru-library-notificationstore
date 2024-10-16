@@ -38,7 +38,7 @@ public class NotificationStoreConstants
     public static final String QUERY_PARAM_CUSTOMER_ID = "customerId";
     public static final String QUERY_PARAM_ID_DEMAND = "idDemand";
     public static final String QUERY_PARAM_LIST_STATUS = "listStatus";
-
+    public static final String QUERY_PARAM_CATEGORY_CODE = "categoryCode";
     //CATEGORY
     public static final String QUERY_PARAM_ID = "id";
     public static final String QUERY_PARAM_CODE = "code";

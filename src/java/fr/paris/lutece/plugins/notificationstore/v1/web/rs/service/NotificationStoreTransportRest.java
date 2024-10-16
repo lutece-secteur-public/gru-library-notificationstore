@@ -144,7 +144,7 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
 
     @Override
     public DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex, String strLimitResult,
-            String strNotificationType ) throws NotificationException
+            String strNotificationType, String strCategoryCode ) throws NotificationException
     {
         _logger.debug( "Get list of demand by status for customer id " + strCustomerId );
 
@@ -173,6 +173,11 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
         if ( StringUtils.isNotEmpty( strNotificationType ) )
         {
             mapParams.put( NotificationStoreConstants.QUERY_PARAM_NOTIFICATION_TYPE, strNotificationType );
+        }
+        
+        if ( StringUtils.isNotEmpty( strCategoryCode ) )
+        {
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_CATEGORY_CODE, strCategoryCode );
         }
 
         try
