@@ -112,12 +112,13 @@ public class NotificationStoreService
      * @param strLimitResult
      * @param strNotificationType
      *            (Not required)
+     * @param strCategoryCode
      * @return list of demand
      */
     public DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex, String strLimitResult,
-            String strNotificationType ) throws NotificationException
+            String strNotificationType, String strCategoryCode ) throws NotificationException
     {
-        return this._transportProvider.getListOfDemandByStatus( strCustomerId, strListStatus, strIdDemandType, strIndex, strLimitResult, strNotificationType );
+        return this._transportProvider.getListOfDemandByStatus( strCustomerId, strListStatus, strIdDemandType, strIndex, strLimitResult, strNotificationType, strCategoryCode );
     }
 
     /**
