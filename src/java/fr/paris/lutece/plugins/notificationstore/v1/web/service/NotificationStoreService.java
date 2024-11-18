@@ -36,7 +36,7 @@ package fr.paris.lutece.plugins.notificationstore.v1.web.service;
 import java.util.List;
 
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandCategory;
-import fr.paris.lutece.plugins.grubusiness.business.demand.DemandStatus;
+import fr.paris.lutece.plugins.grubusiness.business.demand.TemporaryStatus;
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandType;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.DemandResult;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.NotificationResult;
@@ -260,7 +260,7 @@ public class NotificationStoreService
      * @return list of status
      * @throws NotificationException 
      */
-    public List<DemandStatus> getStatusList( ) throws NotificationException
+    public List<TemporaryStatus> getStatusList( ) throws NotificationException
     {
         return this._transportProvider.getStatusList( );
     }
@@ -281,7 +281,7 @@ public class NotificationStoreService
      * @return the status
      * @throws NotificationException 
      */
-    public DemandStatus getStatus( int nStatusId ) throws NotificationException
+    public TemporaryStatus getStatus( int nStatusId ) throws NotificationException
     {
         return this._transportProvider.getStatus( nStatusId );
     }
@@ -292,7 +292,7 @@ public class NotificationStoreService
      * @return the status created
      * @throws NotificationException 
      */
-    public DemandStatus createStatus( DemandStatus status ) throws NotificationException
+    public TemporaryStatus createStatus( TemporaryStatus status ) throws NotificationException
     {
         return this._transportProvider.createStatus( status );
     }
@@ -303,7 +303,7 @@ public class NotificationStoreService
      * @return the status modified
      * @throws NotificationException 
      */
-    public DemandStatus modifyStatus( DemandStatus status  ) throws NotificationException
+    public TemporaryStatus modifyStatus( TemporaryStatus status  ) throws NotificationException
     {
         return this._transportProvider.modifyStatus( status );
     }

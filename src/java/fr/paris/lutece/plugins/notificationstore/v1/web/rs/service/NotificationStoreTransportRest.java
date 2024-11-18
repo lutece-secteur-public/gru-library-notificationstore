@@ -48,7 +48,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandCategory;
-import fr.paris.lutece.plugins.grubusiness.business.demand.DemandStatus;
+import fr.paris.lutece.plugins.grubusiness.business.demand.TemporaryStatus;
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandType;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.DemandResult;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.NotificationResult;
@@ -371,7 +371,7 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
     }
 
     @Override
-    public List<DemandStatus> getStatusList( ) throws NotificationException
+    public List<TemporaryStatus> getStatusList( ) throws NotificationException
     {
         _logger.debug( "Get list of status" );
 
@@ -379,7 +379,7 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
         {
             String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_STATUS, new HashMap<>( ), new HashMap<>( ) );
                     
-            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<List<DemandStatus>>( ){} );
+            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<List<TemporaryStatus>>( ){} );
         }
         catch( Exception e )
         {
@@ -407,7 +407,7 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
     }
 
     @Override
-    public DemandStatus getStatus( int nStatusId ) throws NotificationException
+    public TemporaryStatus getStatus( int nStatusId ) throws NotificationException
     {
         _logger.debug( "Get status by id" );
 
@@ -415,7 +415,7 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
         {
             String strResponse = _httpTransport.doGet( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_STATUS + nStatusId , new HashMap<>( ), new HashMap<>( ) );
             
-            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<DemandStatus>( ){} );
+            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<TemporaryStatus>( ){} );
         }
         catch( Exception e )
         {
@@ -425,7 +425,7 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
     }
 
     @Override
-    public DemandStatus createStatus( DemandStatus status ) throws NotificationException
+    public TemporaryStatus createStatus( TemporaryStatus status ) throws NotificationException
     {
         _logger.debug( "Create category" );
 
@@ -435,7 +435,7 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
             
             String strResponse = _httpTransport.doPostJson( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_STATUS, json, new HashMap<>( ) );
             
-            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<DemandStatus>( ){} );
+            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<TemporaryStatus>( ){} );
         }
         catch( Exception e )
         {
@@ -445,7 +445,7 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
     }
 
     @Override
-    public DemandStatus modifyStatus( DemandStatus status ) throws NotificationException
+    public TemporaryStatus modifyStatus( TemporaryStatus status ) throws NotificationException
     {
         _logger.debug( "Modify category" );
 
@@ -454,7 +454,7 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
             String json = NotificationStoreUtils.getMapper( ).writeValueAsString( status );
             String strResponse = _httpTransport.doPutJson( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_STATUS , json, new HashMap<>( ) );
 
-            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<DemandStatus>( ){} );
+            return NotificationStoreUtils.jsonToObject( getResult( strResponse ), new TypeReference<TemporaryStatus>( ){} );
         }
         catch( Exception e )
         {
