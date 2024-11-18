@@ -36,7 +36,7 @@ package fr.paris.lutece.plugins.notificationstore.v1.web.service;
 import java.util.List;
 
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandCategory;
-import fr.paris.lutece.plugins.grubusiness.business.demand.DemandStatus;
+import fr.paris.lutece.plugins.grubusiness.business.demand.TemporaryStatus;
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandType;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.DemandResult;
 import fr.paris.lutece.plugins.grubusiness.business.web.rs.NotificationResult;
@@ -181,7 +181,7 @@ public interface INotificationStoreTransportProvider
      * @return list of status
      * @throws NotificationException
      */
-    List<DemandStatus> getStatusList( ) throws NotificationException;
+    List<TemporaryStatus> getStatusList( ) throws NotificationException;
 
     /**
      * Gets list of generic status
@@ -196,7 +196,7 @@ public interface INotificationStoreTransportProvider
      * @return the status
      * @throws NotificationException
      */
-    DemandStatus getStatus( int nStatusId ) throws NotificationException;
+    TemporaryStatus getStatus( int nStatusId ) throws NotificationException;
     
     /**
      * Create status
@@ -204,7 +204,7 @@ public interface INotificationStoreTransportProvider
      * @return the status created
      * @throws NotificationException
      */
-    DemandStatus createStatus( DemandStatus status ) throws NotificationException;
+    TemporaryStatus createStatus( TemporaryStatus status ) throws NotificationException;
 
     /**
      * Modify status
@@ -212,7 +212,7 @@ public interface INotificationStoreTransportProvider
      * @return the status modified
      * @throws NotificationException
      */
-    DemandStatus modifyStatus( DemandStatus status  ) throws NotificationException;
+    TemporaryStatus modifyStatus( TemporaryStatus status  ) throws NotificationException;
     
     /**
      * Delete status

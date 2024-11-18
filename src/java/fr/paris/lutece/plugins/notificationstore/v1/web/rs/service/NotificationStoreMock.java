@@ -41,7 +41,7 @@ import org.apache.log4j.Logger;
 import fr.paris.lutece.plugins.grubusiness.business.customer.Customer;
 import fr.paris.lutece.plugins.grubusiness.business.demand.Demand;
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandCategory;
-import fr.paris.lutece.plugins.grubusiness.business.demand.DemandStatus;
+import fr.paris.lutece.plugins.grubusiness.business.demand.TemporaryStatus;
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandType;
 import fr.paris.lutece.plugins.grubusiness.business.notification.MyDashboardNotification;
 import fr.paris.lutece.plugins.grubusiness.business.notification.Notification;
@@ -274,28 +274,28 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
     }
 
     @Override
-    public List<DemandStatus> getStatusList( ) throws NotificationException
+    public List<TemporaryStatus> getStatusList( ) throws NotificationException
     {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public DemandStatus getStatus( int nStatusId ) throws NotificationException
+    public TemporaryStatus getStatus( int nStatusId ) throws NotificationException
     {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public DemandStatus createStatus( DemandStatus status ) throws NotificationException
+    public TemporaryStatus createStatus( TemporaryStatus status ) throws NotificationException
     {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public DemandStatus modifyStatus( DemandStatus status ) throws NotificationException
+    public TemporaryStatus modifyStatus( TemporaryStatus status ) throws NotificationException
     {
         // TODO Auto-generated method stub
         return null;
