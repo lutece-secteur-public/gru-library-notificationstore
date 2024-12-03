@@ -127,11 +127,12 @@ public class NotificationStoreService
      * @param strCustomerId
      * @param strIdDemand
      * @param strIdDemandType
+     * @param strNotificationType
      * @return list of notification
      */
-    public NotificationResult getListNotification( String strCustomerId, String strIdDemand, String strIdDemandType ) throws NotificationException
+    public NotificationResult getListNotification( String strCustomerId, String strIdDemand, String strIdDemandType, String strNotificationType ) throws NotificationException
     {
-        return this._transportProvider.getListNotification( strCustomerId, strIdDemand, strIdDemandType );
+        return this._transportProvider.getListNotification( strCustomerId, strIdDemand, strIdDemandType, strNotificationType );
     }
 
     /**

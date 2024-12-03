@@ -89,7 +89,7 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
     }
 
     @Override
-    public NotificationResult getListNotification( String strCustomerId, String strIdDemand, String strIdDemandType )
+    public NotificationResult getListNotification( String strCustomerId, String strIdDemand, String strIdDemandType, String strNotificationType )
     {
         _logger.debug( "MOCK : Get list of notification of demand id " + strIdDemand );
         return getMockListNotification( strCustomerId, strIdDemand, strIdDemandType );
