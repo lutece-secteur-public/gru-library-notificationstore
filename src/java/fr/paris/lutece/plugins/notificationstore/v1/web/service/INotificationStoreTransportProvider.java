@@ -85,9 +85,10 @@ public interface INotificationStoreTransportProvider
      * @param strCustomerId
      * @param strIdDemand
      * @param strIdDemandType
+     * @param strNotificationType
      * @return list of notification
      */
-    NotificationResult getListNotification( String strCustomerId, String strIdDemand, String strIdDemandType ) throws NotificationException;
+    NotificationResult getListNotification( String strCustomerId, String strIdDemand, String strIdDemandType, String strNotificationType) throws NotificationException;
 
     /**
      * delete all notifications of a customer
