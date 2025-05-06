@@ -350,4 +350,10 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
         
     }
 
+    @Override
+    public void createLink(String oldCustomerId, String newCustomerId) throws NotificationException
+    {
+
+    }
+
 }

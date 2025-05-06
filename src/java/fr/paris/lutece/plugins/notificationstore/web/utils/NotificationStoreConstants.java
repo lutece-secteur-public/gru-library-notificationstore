@@ -22,6 +22,7 @@ public class NotificationStoreConstants
     public static final String PATH_DEMAND_STATUS =  PATH_DEMAND + "status";
     public static final String PATH_NOTIFICATION_LIST = PATH_NOTIFICATION + "list";
     public static final String PATH_TYPE_DEMAND = PATH_DEMAND + "demandType";
+    public static final String PATH_LINK = "link";
     
     public static final String PATH_CATEGORY = "category/";
     public static final String PATH_CATEGORY_LIST = PATH_CATEGORY + "list";

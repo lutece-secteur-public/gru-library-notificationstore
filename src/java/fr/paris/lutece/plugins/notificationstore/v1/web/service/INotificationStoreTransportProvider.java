@@ -230,6 +230,8 @@ public interface INotificationStoreTransportProvider
      * @throws NotificationException
      */
     void deleteAllDemandsAndNotifications ( String strCustomerId ) throws NotificationException;
+
+    void createLink(String oldCustomerId, String newCustomerId) throws NotificationException;
     
 
 }

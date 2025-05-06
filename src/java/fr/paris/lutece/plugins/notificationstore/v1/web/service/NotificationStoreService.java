@@ -319,4 +319,9 @@ public class NotificationStoreService
         this._transportProvider.deleteStatus( nStatusId );
     }
 
+    public void createLink( String oldCustomerId, String newCustomerId ) throws NotificationException
+    {
+        this._transportProvider.createLink( oldCustomerId, newCustomerId);
+    }
+
 }
