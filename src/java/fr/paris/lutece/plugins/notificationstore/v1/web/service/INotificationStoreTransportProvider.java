@@ -231,7 +231,14 @@ public interface INotificationStoreTransportProvider
      */
     void deleteAllDemandsAndNotifications ( String strCustomerId ) throws NotificationException;
 
-    void createLink(String oldCustomerId, String newCustomerId) throws NotificationException;
+    /**
+     * Re-assign notifications to consolidated identity after a merge
+     * 
+     * @param oldCustomerId
+     * @param newCustomerId
+     * @throws NotificationException
+     */
+    void reassignNotifications(String oldCustomerId, String newCustomerId) throws NotificationException;
     
 
 }

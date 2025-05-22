@@ -37,8 +37,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import fr.paris.lutece.plugins.grubusiness.business.notification.NotificationLink;
-import fr.paris.lutece.plugins.grubusiness.business.notification.NotificationLinkRequest;
+import fr.paris.lutece.plugins.grubusiness.business.notification.ReassignNotificationsRequest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpHeaders;
@@ -652,20 +652,19 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
     }
 
     @Override
-    public void createLink( String oldCustomerId, String newCustomerId ) throws NotificationException
+    public void reassignNotifications( String oldCustomerId, String newCustomerId ) throws NotificationException
     {
-        _logger.debug( "change all the demands and notification when 2 identities are merged" );
+        _logger.debug( "Reassign demands and notifications when 2 identities are merged" );
 
         try
         {
-            NotificationLink notificationLink = new NotificationLink( );
-            notificationLink.setOldCustomerId( oldCustomerId );
-            notificationLink.setNewCustomerId( newCustomerId );
-            NotificationLinkRequest request = new NotificationLinkRequest( notificationLink );
+        	ReassignNotificationsRequest request = new ReassignNotificationsRequest( );
+        	request.setOldCustomerId( oldCustomerId );
+        	request.setNewCustomerId( newCustomerId );
 
             String json = NotificationStoreUtils.getMapper( ).writeValueAsString( request );
 
-            _httpTransport.doPutJson( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_NOTIFICATION + NotificationStoreConstants.PATH_LINK, json, new HashMap<>( ) );
+            _httpTransport.doPutJson( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_NOTIFICATION + NotificationStoreConstants.PATH_REASSIGN, json, new HashMap<>( ) );
         }
         catch( Exception e )
         {

@@ -319,9 +319,16 @@ public class NotificationStoreService
         this._transportProvider.deleteStatus( nStatusId );
     }
 
-    public void createLink( String oldCustomerId, String newCustomerId ) throws NotificationException
+    /**
+     * Re-assign notifications to consolidated identity after a merge
+     * 
+     * @param oldCustomerId
+     * @param newCustomerId
+     * @throws NotificationException
+     */
+    public void reassignNotifications( String oldCustomerId, String newCustomerId ) throws NotificationException
     {
-        this._transportProvider.createLink( oldCustomerId, newCustomerId);
+        this._transportProvider.reassignNotifications( oldCustomerId, newCustomerId);
     }
 
 }

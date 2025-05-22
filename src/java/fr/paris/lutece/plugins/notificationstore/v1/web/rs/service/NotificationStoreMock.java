@@ -241,119 +241,103 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
     @Override
     public List<DemandCategory> getCategoriesList( ) throws NotificationException
     {
-        // TODO Auto-generated method stub
-        return null;
+        return new ArrayList();
     }
 
     @Override
     public DemandCategory getCategory( int nCategoryId ) throws NotificationException
     {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public DemandCategory createCategory( DemandCategory category ) throws NotificationException
     {
-        // TODO Auto-generated method stub
-        return null;
+        return category;
     }
 
     @Override
     public DemandCategory modifyCategory( DemandCategory category ) throws NotificationException
     {
-        // TODO Auto-generated method stub
-        return null;
+        return category;
     }
 
     @Override
     public void deleteCategory( int nCategoryId ) throws NotificationException
     {
-        // TODO Auto-generated method stub
-        
+        // nothing
     }
 
     @Override
     public List<TemporaryStatus> getStatusList( ) throws NotificationException
     {
-        // TODO Auto-generated method stub
-        return null;
+    	return new ArrayList();
     }
 
     @Override
     public TemporaryStatus getStatus( int nStatusId ) throws NotificationException
     {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public TemporaryStatus createStatus( TemporaryStatus status ) throws NotificationException
     {
-        // TODO Auto-generated method stub
-        return null;
+        return status;
     }
 
     @Override
     public TemporaryStatus modifyStatus( TemporaryStatus status ) throws NotificationException
     {
-        // TODO Auto-generated method stub
-        return null;
+        return status;
     }
 
     @Override
     public void deleteStatus( int nStatusId ) throws NotificationException
     {
-        // TODO Auto-generated method stub
-        
+    	// nothing
     }
 
     @Override
     public ReferenceList getGenericStatusList( ) throws NotificationException
     {
-        // TODO Auto-generated method stub
-        return null;
+        return new ReferenceList();
     }
 
     @Override
     public DemandType getDemandType( int nDemandTypeId ) throws NotificationException
     {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public DemandType createDemandType( DemandType demandType ) throws NotificationException
     {
-        // TODO Auto-generated method stub
-        return null;
+        return demandType;
     }
 
     @Override
     public DemandType modifyDemandType( DemandType demandType ) throws NotificationException
     {
-        // TODO Auto-generated method stub
-        return null;
+        return demandType;
     }
 
     @Override
     public void deleteDemandType( int nDemandTypeId ) throws NotificationException
     {
-        // TODO Auto-generated method stub
-        
+        // nothing
     }
 
     @Override
     public void deleteAllDemandsAndNotifications( String strCustomerId )
     {
-        // TODO Auto-generated method stub
-        
+        // nothing
     }
 
     @Override
-    public void createLink(String oldCustomerId, String newCustomerId) throws NotificationException
+    public void reassignNotifications(String oldCustomerId, String newCustomerId) throws NotificationException
     {
-
+    	// nothing
     }
 
 }
