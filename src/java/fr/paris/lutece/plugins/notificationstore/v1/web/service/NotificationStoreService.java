@@ -376,7 +376,7 @@ public class NotificationStoreService extends AbstractCacheableService
     {
 	checkCategoryCache( );
 		
-	List<DemandCategory>  list =  (List<DemandCategory>) getFromCache( DEMANDTYPE_LIST_KEY );
+	List<DemandCategory>  list =  (List<DemandCategory>) getFromCache( CATEGORY_LIST_KEY );
 	
         return (list != null ? list : new  ArrayList<>() ) ;
     }
