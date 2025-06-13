@@ -54,8 +54,8 @@ public class NotificationStoreService extends AbstractCacheableService
 
     private static final String SERVICE_NAME = "NotificationStoreCacheService";
     private static final String STATUS_LIST_KEY = "StatusListKey";
-    private static final String CATEGORY_LIST_KEY = "GenericStatusListKey";
-    private static final String DEMANDTYPE_LIST_KEY = "GenericStatusListKey";
+    private static final String CATEGORY_LIST_KEY = "CategoryListKey";
+    private static final String DEMANDTYPE_LIST_KEY = "DemandTypeListKey";
     private static final String GENERICSTATUS_LIST_KEY = "GenericStatusListKey";
     private static boolean flushCategoryCache = false;
     private static boolean flushDemandTypeCache = false;
