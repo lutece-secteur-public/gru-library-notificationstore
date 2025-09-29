@@ -100,7 +100,7 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
     }
 
     @Override
-    public DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strLimitResult, String strNotificationType ) throws NotificationException
+    public DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strLimitResult, String strNotificationType, String strDirectionDateOrderBy ) throws NotificationException
     {
         _logger.debug( "Get list of demand for customer id " + strCustomerId );
 
@@ -127,6 +127,12 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
         {
             mapParams.put( NotificationStoreConstants.QUERY_PARAM_NOTIFICATION_TYPE, strNotificationType );
         }
+        
+        if ( StringUtils.isNotEmpty( strDirectionDateOrderBy ) )
+        {
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_DIRECTION_DATE_ORDERBY, strDirectionDateOrderBy );
+        }
+        
 
         try
         {

@@ -60,7 +60,7 @@ public interface INotificationStoreTransportProvider
      * @param strNotificationType
      * @return list of demand
      */
-    DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strLimitResult, String strNotificationType ) throws NotificationException;
+    DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strLimitResult, String strNotificationType, String strDirectionDateOrderBy ) throws NotificationException;
 
     /**
      * List of demand by list of status, customer id, type demand id and index

@@ -111,9 +111,26 @@ public class NotificationStoreService extends AbstractCacheableService
      */
     public DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strLimitResult, String strNotificationType ) throws NotificationException
     {
-        return this._transportProvider.getListDemand( strCustomerId, strIdDemandType, strIndex, strLimitResult, strNotificationType );
+        return getListDemand( strCustomerId, strIdDemandType, strIndex, strLimitResult, strNotificationType, null );
     }
 
+    /**
+     * List of demand by customer id, type demand id and index
+     * 
+     * @param strCustomerId
+     * @param strIdDemandType
+     * @param strIndex
+     *            (Not required)
+     * @param strLimitResult
+     * @param strNotificationType
+     *            (Not required)
+     * @return list of demand
+     */
+    public DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strLimitResult, String strNotificationType, String strDirectionDateOrderBy ) throws NotificationException
+    {
+        return this._transportProvider.getListDemand( strCustomerId, strIdDemandType, strIndex, strLimitResult, strNotificationType, strDirectionDateOrderBy );
+    }
+    
     /**
      * List of demand by list of status, customer id, type demand id and index
      * 
