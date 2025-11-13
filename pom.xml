@@ -10,7 +10,7 @@
     <groupId>fr.paris.lutece.plugins</groupId>
     <artifactId>library-notificationstore</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <name>Lutece notificationstore library</name>
 
     <repositories>
@@ -59,7 +59,7 @@
         <connection>scm:git:https://github.com/lutece-secteur-public/gru-library-notificationstore.git</connection>
         <developerConnection>scm:git:https://github.com/lutece-secteur-public/gru-library-notificationstore.git</developerConnection>
         <url>https://github.com/lutece-secteur-public/gru-library-notificationstore.git</url>
-      <tag>HEAD</tag>
+      <tag>library-notificationstore-1.0.1</tag>
   </scm>
 
 </project>
