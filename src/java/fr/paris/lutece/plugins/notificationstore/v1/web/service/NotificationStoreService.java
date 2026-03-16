@@ -60,17 +60,17 @@ public class NotificationStoreService extends AbstractCacheableService
     private static boolean flushCategoryCache = false;
     private static boolean flushDemandTypeCache = false;
     private static boolean flushStatusCache = false;
-    
+
     /** transport provider */
     private INotificationStoreTransportProvider _transportProvider;
-    
+
     /**
      * Simple Constructor
      */
     public NotificationStoreService( )
     {
-        super( );
-        initCache( );
+	super( );
+	initCache( );
     }
 
     /**
@@ -81,9 +81,9 @@ public class NotificationStoreService extends AbstractCacheableService
      */
     public NotificationStoreService( final INotificationStoreTransportProvider transportProvider )
     {
-        super( );
-        this._transportProvider = transportProvider;
-        initCache( );
+	super( );
+	this._transportProvider = transportProvider;
+	initCache( );
     }
 
     /**
@@ -94,7 +94,7 @@ public class NotificationStoreService extends AbstractCacheableService
      */
     public void setTransportProvider( final INotificationStoreTransportProvider transportProvider )
     {
-        this._transportProvider = transportProvider;
+	this._transportProvider = transportProvider;
     }
 
     /**
@@ -111,7 +111,7 @@ public class NotificationStoreService extends AbstractCacheableService
      */
     public DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strLimitResult, String strNotificationType ) throws NotificationException
     {
-        return getListDemand( strCustomerId, strIdDemandType, strIndex, strLimitResult, strNotificationType, null );
+	return getListDemand( strCustomerId, strIdDemandType, strIndex, strLimitResult, strNotificationType, null );
     }
 
     /**
@@ -128,9 +128,9 @@ public class NotificationStoreService extends AbstractCacheableService
      */
     public DemandResult getListDemand( String strCustomerId, String strIdDemandType, String strIndex, String strLimitResult, String strNotificationType, String strDirectionDateOrderBy ) throws NotificationException
     {
-        return this._transportProvider.getListDemand( strCustomerId, strIdDemandType, strIndex, strLimitResult, strNotificationType, strDirectionDateOrderBy );
+	return this._transportProvider.getListDemand( strCustomerId, strIdDemandType, strIndex, strLimitResult, strNotificationType, strDirectionDateOrderBy );
     }
-    
+
     /**
      * List of demand by list of status, customer id, type demand id and index
      * 
@@ -147,9 +147,9 @@ public class NotificationStoreService extends AbstractCacheableService
      * @return list of demand
      */
     public DemandResult getListOfDemandByStatus( String strCustomerId, String strListStatus, String strIdDemandType, String strIndex, String strLimitResult,
-            String strNotificationType, String strCategoryCode ) throws NotificationException
+	    String strNotificationType, String strCategoryCode ) throws NotificationException
     {
-        return this._transportProvider.getListOfDemandByStatus( strCustomerId, strListStatus, strIdDemandType, strIndex, strLimitResult, strNotificationType, strCategoryCode );
+	return this._transportProvider.getListOfDemandByStatus( strCustomerId, strListStatus, strIdDemandType, strIndex, strLimitResult, strNotificationType, strCategoryCode );
     }
 
     /**
@@ -163,7 +163,7 @@ public class NotificationStoreService extends AbstractCacheableService
      */
     public NotificationResult getListNotification( String strCustomerId, String strIdDemand, String strIdDemandType, String strNotificationType ) throws NotificationException
     {
-        return this._transportProvider.getListNotification( strCustomerId, strIdDemand, strIdDemandType, strNotificationType );
+	return this._transportProvider.getListNotification( strCustomerId, strIdDemand, strIdDemandType, strNotificationType );
     }
 
     /**
@@ -176,9 +176,9 @@ public class NotificationStoreService extends AbstractCacheableService
      */
     public String deleteNotificationByCuid( String strCustomerId ) throws NotificationException
     {
-        return this._transportProvider.deleteNotificationByCuid( strCustomerId );
+	return this._transportProvider.deleteNotificationByCuid( strCustomerId );
     }
-    
+
     /**
      * Get category by id
      * @param nCategoryId
@@ -188,11 +188,11 @@ public class NotificationStoreService extends AbstractCacheableService
     public DemandCategory getCategory( int nCategoryId ) throws NotificationException
     {
 	List<DemandCategory> list = getCategoriesList ( );
-	
+
 	return list.stream( ).filter(e -> nCategoryId == e.getId( ) )
-		       .findFirst( ).orElse( null );
+		.findFirst( ).orElse( null );
     }
-    
+
     /**
      * Create category
      * @param category
@@ -202,10 +202,10 @@ public class NotificationStoreService extends AbstractCacheableService
     public DemandCategory createCategory( DemandCategory category ) throws NotificationException
     {
 	DemandCategory dc = this._transportProvider.createCategory( category );
-	
+
 	flushCategoryCache = true;
-	
-        return dc;
+
+	return dc;
     }
 
     /**
@@ -217,12 +217,12 @@ public class NotificationStoreService extends AbstractCacheableService
     public DemandCategory modifyCategory( DemandCategory category  ) throws NotificationException
     {
 	DemandCategory dc = this._transportProvider.modifyCategory( category );
-	
+
 	flushCategoryCache = true;
-	
+
 	return dc;
     }
-    
+
     /**
      * Delete category
      * @param nCategoryId
@@ -230,12 +230,12 @@ public class NotificationStoreService extends AbstractCacheableService
      */
     public void deleteCategory( int nCategoryId ) throws NotificationException
     {
-        this._transportProvider.deleteCategory( nCategoryId );
-        
-        flushCategoryCache = true;
+	this._transportProvider.deleteCategory( nCategoryId );
+
+	flushCategoryCache = true;
     }
-    
-    
+
+
     /**
      * Get demand type by id
      * @param nDemandTypeId
@@ -244,9 +244,9 @@ public class NotificationStoreService extends AbstractCacheableService
      */
     public DemandType getDemandType( int nDemandTypeId ) throws NotificationException
     {
-        return getDemandType( String.valueOf ( nDemandTypeId ) );
+	return getDemandType( String.valueOf ( nDemandTypeId ) );
     }
-    
+
     /**
      * Create demand type
      * @param demand type
@@ -256,9 +256,9 @@ public class NotificationStoreService extends AbstractCacheableService
     public DemandType createDemandType( DemandType demandType ) throws NotificationException
     {
 	DemandType dt =  this._transportProvider.createDemandType( demandType );
-	
+
 	flushDemandTypeCache = true;
-	
+
 	return dt;
     }
 
@@ -271,12 +271,12 @@ public class NotificationStoreService extends AbstractCacheableService
     public DemandType modifyDemandType( DemandType demandType ) throws NotificationException
     {
 	DemandType dt =  this._transportProvider.modifyDemandType( demandType );
-	
+
 	flushDemandTypeCache = true;
-	
+
 	return dt;
     }
-    
+
     /**
      * Delete demand type
      * @param nDemandTypeId
@@ -284,13 +284,13 @@ public class NotificationStoreService extends AbstractCacheableService
      */
     public void deleteDemandType( int nDemandTypeId ) throws NotificationException
     {
-        this._transportProvider.deleteDemandType( nDemandTypeId );
-        
-        flushDemandTypeCache = true;
+	this._transportProvider.deleteDemandType( nDemandTypeId );
+
+	flushDemandTypeCache = true;
     }
-    
-    
-   /**
+
+
+    /**
      * Get status by id
      * @param nStatusId
      * @return the status
@@ -299,11 +299,11 @@ public class NotificationStoreService extends AbstractCacheableService
     public TemporaryStatus getStatus( int nStatusId ) throws NotificationException
     {
 	List<TemporaryStatus> list = getStatusList ( );
-	
+
 	return list.stream( ).filter(e -> nStatusId == e.getId( ) )
-		       .findFirst( ).orElse( null );
+		.findFirst( ).orElse( null );
     }
-    
+
     /**
      * Create status
      * @param status
@@ -313,9 +313,9 @@ public class NotificationStoreService extends AbstractCacheableService
     public TemporaryStatus createStatus( TemporaryStatus status ) throws NotificationException
     {
 	TemporaryStatus ts =  this._transportProvider.createStatus( status );
-	
+
 	flushStatusCache = true;
-	
+
 	return ts;
     }
 
@@ -328,12 +328,12 @@ public class NotificationStoreService extends AbstractCacheableService
     public TemporaryStatus modifyStatus( TemporaryStatus status  ) throws NotificationException
     {
 	TemporaryStatus ts =  this._transportProvider.modifyStatus( status );
-	
+
 	flushStatusCache = true;
-	
+
 	return ts;
     }
-    
+
     /**
      * Delete status
      * @param nStatusId
@@ -341,9 +341,9 @@ public class NotificationStoreService extends AbstractCacheableService
      */
     public void deleteStatus( int nStatusId ) throws NotificationException
     {
-        this._transportProvider.deleteStatus( nStatusId );
-        
-        flushStatusCache = true;
+	this._transportProvider.deleteStatus( nStatusId );
+
+	flushStatusCache = true;
     }
 
     /**
@@ -355,9 +355,9 @@ public class NotificationStoreService extends AbstractCacheableService
      */
     public void reassignNotifications( String oldCustomerId, String newCustomerId ) throws NotificationException
     {
-        this._transportProvider.reassignNotifications( oldCustomerId, newCustomerId);
+	this._transportProvider.reassignNotifications( oldCustomerId, newCustomerId);
     }
-    
+
     /**
      * get name
      * 
@@ -365,7 +365,7 @@ public class NotificationStoreService extends AbstractCacheableService
      */
     public String getName( )
     {
-        return SERVICE_NAME;
+	return SERVICE_NAME;
     }
 
     /**
@@ -378,11 +378,11 @@ public class NotificationStoreService extends AbstractCacheableService
     public DemandType getDemandType( String strTypeId )
     {
 	if (strTypeId == null ) return null;
-	
+
 	List<DemandType> list = getDemandTypes( );
 
 	return list.stream( ).filter(e -> strTypeId.equals (  String.valueOf ( e.getIdDemandType( ) ) ) )
-	       .findFirst( ).orElse( null );
+		.findFirst( ).orElse( null );
     }
 
     /**
@@ -392,12 +392,12 @@ public class NotificationStoreService extends AbstractCacheableService
     public List<DemandCategory> getCategoriesList( ) 
     {
 	checkCategoryCache( );
-		
+
 	List<DemandCategory>  list =  (List<DemandCategory>) getFromCache( CATEGORY_LIST_KEY );
-	
-        return (list != null ? list : new  ArrayList<>() ) ;
+
+	return (list != null ? list : new  ArrayList<>() ) ;
     }
-    
+
     /**
      * Gets list of status
      * @return list of status
@@ -406,12 +406,12 @@ public class NotificationStoreService extends AbstractCacheableService
     public List<TemporaryStatus> getStatusList( ) throws NotificationException
     {
 	checkStatusCache ( );
-	
+
 	List<TemporaryStatus> list = (List<TemporaryStatus>) getFromCache( STATUS_LIST_KEY );
-	
-        return (list != null ? list : new  ArrayList<>() ) ;
+
+	return (list != null ? list : new  ArrayList<>() ) ;
     }
-    
+
     /**
      * Gets list of generic status
      * @return list of generic status
@@ -420,25 +420,23 @@ public class NotificationStoreService extends AbstractCacheableService
     public ReferenceList getGenericStatusList( ) throws NotificationException
     {
 	checkGenericStatusCache ( );
-	
+
 	ReferenceList list = (ReferenceList) getFromCache( GENERICSTATUS_LIST_KEY );
-        
-        return (list != null ? list : new  ReferenceList() ) ;
+
+	return (list != null ? list : new  ReferenceList() ) ;
     }
-    
+
     /**
      * Gets list of demand types
      * @return list of demand types
      */
     public List<DemandType> getDemandTypes( ) 
     {
-	checkDemandTypeCache( );
-	
-	List<DemandType>  list =  (List<DemandType>) getFromCache ( DEMANDTYPE_LIST_KEY );
-        
-        return (list != null ? list : new  ArrayList<>() ) ;
+	List<DemandType>  list = checkDemandTypeCache( );
+
+	return (list != null ? list : new  ArrayList<>() ) ;
     }
-    
+
     /**
      * check cache
      * re-init if necessary
@@ -447,12 +445,12 @@ public class NotificationStoreService extends AbstractCacheableService
     private void checkStatusCache( )
     {
 	if ( isCacheEnable() && !flushStatusCache && getFromCache( STATUS_LIST_KEY ) != null ) return ;
-	
+
 	try
 	{	    
 	    List<TemporaryStatus> lists = this._transportProvider.getStatusList( );
 	    putInCache( STATUS_LIST_KEY , lists );
-	    
+
 	    flushStatusCache = false;
 	} 
 	catch ( NotificationException e )
@@ -460,29 +458,42 @@ public class NotificationStoreService extends AbstractCacheableService
 	    AppLogService.error ( "NotificationStore access problem", e );
 	}
     }
-    
+
     /**
      * check cache
      * re-init if necessary
      * 
      */
-    private void checkDemandTypeCache( )
+    private List<DemandType> checkDemandTypeCache( )
     {
-	if ( isCacheEnable() && !flushDemandTypeCache && getFromCache( DEMANDTYPE_LIST_KEY ) != null ) return ;
-	
+	if ( isCacheEnable() && !flushDemandTypeCache )
+	{
+	    List<DemandType> listd = (List<DemandType>) getFromCache( DEMANDTYPE_LIST_KEY );
+	    if ( listd != null )
+	    {
+		return listd;
+	    }
+	}
+
 	try
 	{
 	    List<DemandType> listd = this._transportProvider.getDemandTypes( );
-	    putInCache( DEMANDTYPE_LIST_KEY, listd );
+	    if ( isCacheEnable( ) ) 
+	    {
+		putInCache( DEMANDTYPE_LIST_KEY, listd );
+		flushDemandTypeCache = false;
+	    }
 	    
-	    flushDemandTypeCache = false;
+	    return listd;
 	} 
 	catch ( NotificationException e )
 	{
 	    AppLogService.error ( "NotificationStore access problem", e );
 	}
+	
+	return null;
     }
-    
+
     /**
      * check cache
      * re-init if necessary
@@ -491,12 +502,12 @@ public class NotificationStoreService extends AbstractCacheableService
     private void checkCategoryCache( )
     {
 	if ( isCacheEnable() && !flushCategoryCache && getFromCache( CATEGORY_LIST_KEY ) != null ) return ;
-	
+
 	try
 	{
 	    List<DemandCategory> listc = this._transportProvider.getCategoriesList( );
 	    putInCache( CATEGORY_LIST_KEY, listc );
-	    
+
 	    flushCategoryCache = false;
 	} 
 	catch ( NotificationException e )
@@ -504,7 +515,7 @@ public class NotificationStoreService extends AbstractCacheableService
 	    AppLogService.error ( "NotificationStore access problem", e );
 	}
     }
-    
+
     /**
      * check cache
      * re-init if necessary
@@ -513,12 +524,12 @@ public class NotificationStoreService extends AbstractCacheableService
     private void checkGenericStatusCache( )
     {
 	if ( getFromCache( GENERICSTATUS_LIST_KEY ) != null ) return ;
-	
+
 	try
 	{	    
 	    ReferenceList gsl = this._transportProvider.getGenericStatusList( );
 	    putInCache( GENERICSTATUS_LIST_KEY, gsl );
-	    
+
 	} 
 	catch ( NotificationException e )
 	{
