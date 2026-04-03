@@ -61,6 +61,7 @@ import fr.paris.lutece.plugins.notificationstore.v1.web.service.INotificationSto
 import fr.paris.lutece.plugins.notificationstore.web.utils.NotificationStoreConstants;
 import fr.paris.lutece.plugins.notificationstore.web.utils.NotificationStoreUtils;
 import fr.paris.lutece.util.ReferenceList;
+import fr.paris.lutece.util.url.UrlItem;
 import fr.paris.lutece.util.http.SecurityUtil;
 
 /**
@@ -246,6 +247,37 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
         }
     }
 
+
+    @Override
+    public NotificationResult getNotificationsByDemandList( String strCustomerId, List<Map<String, String>> listDemandPairs, String strNotificationType ) throws NotificationException
+    {
+        _logger.debug( "Get notifications by demand list for customer id " + SecurityUtil.logForgingProtect( strCustomerId ) );
+
+        try
+        {
+            String strJson = NotificationStoreUtils.getMapper( ).writeValueAsString( listDemandPairs );
+
+            UrlItem urlItem = new UrlItem( _strNotificationStoreEndPoint + NotificationStoreConstants.PATH_NOTIFICATION_LIST );
+            urlItem.addParameter( NotificationStoreConstants.QUERY_PARAM_CUSTOMER_ID, strCustomerId );
+
+            if ( StringUtils.isNotEmpty( strNotificationType ) )
+            {
+                urlItem.addParameter( NotificationStoreConstants.QUERY_PARAM_NOTIFICATION_TYPE, strNotificationType );
+            }
+
+            String strResponse = _httpTransport.doPostJson( urlItem.getUrl( ), strJson, new HashMap<>( ) );
+
+            return NotificationStoreUtils.jsonToObject( strResponse, new TypeReference<NotificationResult>( )
+            {
+            } );
+        }
+        catch( Exception e )
+        {
+            _logger.error( "LibraryNotificationStore - Error HttpAccessTransport", e );
+
+            throw new NotificationException( e.getMessage( ) );
+        }
+    }
 
     @Override
     public String deleteNotificationByCuid( String strCustomerId ) throws NotificationException

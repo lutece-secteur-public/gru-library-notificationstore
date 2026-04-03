@@ -35,6 +35,7 @@ package fr.paris.lutece.plugins.notificationstore.v1.web.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandCategory;
 import fr.paris.lutece.plugins.grubusiness.business.demand.TemporaryStatus;
@@ -167,8 +168,23 @@ public class NotificationStoreService extends AbstractCacheableService
     }
 
     /**
+     * List of notifications for a list of (demandId, demandTypeId) pairs and a customer id
+     *
+     * @param strCustomerId
+     * @param listDemandPairs
+     *            list of maps with keys "demandId" and "demandTypeId"
+     * @param strNotificationType
+     *            (Not required)
+     * @return list of notifications
+     */
+    public NotificationResult getNotificationsByDemandList( String strCustomerId, List<Map<String, String>> listDemandPairs, String strNotificationType ) throws NotificationException
+    {
+	return this._transportProvider.getNotificationsByDemandList( strCustomerId, listDemandPairs, strNotificationType );
+    }
+
+    /**
      * List of notification by demand id, customer id and type demand id
-     * 
+     *
      * @param strCustomerId
      * @param strIdDemand
      * @param strIdDemandType

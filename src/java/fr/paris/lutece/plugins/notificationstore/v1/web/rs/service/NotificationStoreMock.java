@@ -35,6 +35,7 @@ package fr.paris.lutece.plugins.notificationstore.v1.web.rs.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -93,6 +94,13 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
     {
         _logger.debug( "MOCK : Get list of notification of demand id " + strIdDemand );
         return getMockListNotification( strCustomerId, strIdDemand, strIdDemandType );
+    }
+
+    @Override
+    public NotificationResult getNotificationsByDemandList( String strCustomerId, List<Map<String, String>> listDemandPairs, String strNotificationType )
+    {
+        _logger.debug( "MOCK : Get notifications by demand list for customer id " + strCustomerId );
+        return getMockListNotification( strCustomerId, null, null );
     }
 
     @Override

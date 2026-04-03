@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.notificationstore.v1.web.service;
 
 import java.util.List;
+import java.util.Map;
 
 import fr.paris.lutece.plugins.grubusiness.business.demand.DemandCategory;
 import fr.paris.lutece.plugins.grubusiness.business.demand.TemporaryStatus;
@@ -91,8 +92,20 @@ public interface INotificationStoreTransportProvider
     NotificationResult getListNotification( String strCustomerId, String strIdDemand, String strIdDemandType, String strNotificationType) throws NotificationException;
 
     /**
+     * List of notifications for a list of (demandId, demandTypeId) pairs and a customer id
+     *
+     * @param strCustomerId
+     * @param listDemandPairs
+     *            list of maps with keys "demandId" and "demandTypeId"
+     * @param strNotificationType
+     *            (Not required)
+     * @return list of notifications
+     */
+    NotificationResult getNotificationsByDemandList( String strCustomerId, List<Map<String, String>> listDemandPairs, String strNotificationType ) throws NotificationException;
+
+    /**
      * delete all notifications of a customer
-     * 
+     *
      * @param strCustomerId
      * @return
      * @throws NotificationException
