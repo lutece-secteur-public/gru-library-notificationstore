@@ -168,7 +168,7 @@ public class NotificationStoreTransportRest extends AbstractTransportRest implem
         }
         if ( StringUtils.isNotEmpty( strIdDemandType ) )
         {
-            mapParams.put( NotificationStoreConstants.QUERY_PARAM_ID_DEMAND_TYPE, strIdDemandType );
+            mapParams.put( NotificationStoreConstants.QUERY_PARAM_LIST_IDS_DEMAND_TYPE, strIdDemandType );
         }
         if ( StringUtils.isNotEmpty( strIndex ) )
         {
