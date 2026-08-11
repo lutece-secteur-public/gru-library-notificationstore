@@ -111,19 +111,19 @@ public class NotificationStoreMock implements INotificationStoreTransportProvide
         List<DemandType> list = new ArrayList<>( );
 
         DemandType demandType1 = new DemandType( );
-        demandType1.setIdDemandType( 123 );
+        demandType1.setIdDemandType( "123" );
         demandType1.setLabel( "Paris Familles - Inscription scolaire" );
         demandType1.setAppCode( "A63" );
         list.add( demandType1 );
 
         DemandType demandType2 = new DemandType( );
-        demandType2.setIdDemandType( 123 );
+        demandType2.setIdDemandType( "123" );
         demandType2.setLabel( "demande de subventions" );
         demandType2.setAppCode( "W30" );
         list.add( demandType2 );
 
         DemandType demandType3 = new DemandType( );
-        demandType3.setIdDemandType( 123 );
+        demandType3.setIdDemandType( "123" );
         demandType3.setLabel( "Formulaires DSIN" );
         demandType3.setAppCode( "F56" );
         list.add( demandType3 );
